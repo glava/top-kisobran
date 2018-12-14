@@ -1,28 +1,12 @@
 package org.kisobran.top.db
 
-import java.nio.file.Files
 
 import org.kisobran.top.model.Entry
-import org.scalatest.FlatSpec
-import org.scalatest._
+import org.scalatest.{FlatSpec, _}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
-import slick.jdbc.{DriverDataSource, H2Profile}
+import slick.jdbc.H2Profile
 
 import scala.concurrent.ExecutionContext
-
-object DbTestConfiguration {
-
-  def testMySQL = {
-    val tempDir = Files.createTempDirectory(null)
-
-    val ds = new DriverDataSource(
-      url = s"jdbc:h2:${tempDir.toFile.getAbsolutePath}/test.db;DB_CLOSE_DELAY=-1;MODE=MySQL;",
-      driverClassName = "org.h2.Driver")
-
-    ds
-  }
-
-}
 
 class SlickTopListRepositorySpecextends extends FlatSpec
   with Matchers

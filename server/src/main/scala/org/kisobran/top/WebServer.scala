@@ -1,15 +1,17 @@
 package org.kisobran.top
 
+import java.nio.file.Files
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
-import org.kisobran.top.db.SlickTopListRepository
+import org.kisobran.top.db.{DbTestConfiguration, SlickTopListRepository}
 import org.postgresql.Driver
 import slick.jdbc.{DatabaseUrlDataSource, DriverDataSource, H2Profile, PostgresProfile}
 
 import scala.concurrent.ExecutionContext
-
+import scala.util.Try
 
 object WebServer {
   def main(args: Array[String]) {
@@ -19,12 +21,15 @@ object WebServer {
     val config = ConfigFactory.load()
     val interface = config.getString("http.interface")
     val port = config.getInt("http.port")
-    val dbUrl = config.getString("db.url")
-    val dbUser = config.getString("db.user")
-    val dbPassword = config.getString("db.password")
+    val dbUrl = Try(config.getString("db.url"))
+    val dbUser = Try(config.getString("db.user")).getOrElse("")
+    val dbPassword = Try(config.getString("db.password")).getOrElse("")
     val service = new WebService()
 
-    val source = new DriverDataSource(dbUrl, user = dbUser, password = dbPassword, driverClassName = classOf[Driver].getName)
+    val source = dbUrl.map { url =>
+      new DriverDataSource(url, user = dbUser, password = dbPassword, driverClassName = classOf[Driver].getName)
+    }.getOrElse(DbTestConfiguration.testMySQL)
+
     val topListRepository = new SlickTopListRepository(
       source
     )(PostgresProfile, ExecutionContext.global)
