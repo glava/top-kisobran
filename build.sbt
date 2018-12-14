@@ -1,4 +1,5 @@
 import sbtcrossproject.{crossProject, CrossType}
+val slickV = "3.2.1"
 
 lazy val server = (project in file("server")).settings(commonSettings).settings(
   scalaJSProjects := Seq(client),
@@ -8,7 +9,15 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-http" % "10.1.1",
     "com.typesafe.akka" %% "akka-stream" % "2.5.11",
-    "com.vmunier" %% "scalajs-scripts" % "1.1.2"
+    "com.vmunier" %% "scalajs-scripts" % "1.1.2",
+    "org.liquibase" % "liquibase-core" % "3.6.1",
+    "com.chuusai"        %% "shapeless" % "2.3.3",
+    "io.underscore"      %% "slickless" % "0.3.3",
+    "com.typesafe.slick" %% "slick" % slickV,
+    "com.h2database" % "h2" % "1.4.196",
+    "com.typesafe.slick" %% "slick-codegen" % slickV,
+    "com.typesafe.slick" %% "slick-hikaricp" % slickV,
+    "org.scalatest" %% "scalatest" % "3.0.3" % Test
   ),
   WebKeys.packagePrefix in Assets := "public/",
   managedClasspath in Runtime += (packageBin in Assets).value,
