@@ -33,7 +33,7 @@ trait BaseRepo {
       .map(_ => true)
       .recover {
         case error: Throwable =>
-          println(error.getLocalizedMessage)
+          println(error.getStackTrace.mkString(","))
           false
       }
 
