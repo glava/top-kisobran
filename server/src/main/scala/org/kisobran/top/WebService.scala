@@ -20,6 +20,16 @@ class WebService() extends Directives {
         encodeResponse {
           getFromResource("public/" + file)
         }
+      } ~ {
+      pathPrefix("glasaj") {
+        post {
+          formFieldMap { formContent =>
+            complete {
+              s"${formContent.values.toString()}"
+            }
+          }
+        }
       }
+    }
   }
 }
