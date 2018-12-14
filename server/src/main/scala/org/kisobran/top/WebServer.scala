@@ -13,7 +13,13 @@ object WebServer {
     val config = ConfigFactory.load()
     val interface = config.getString("http.interface")
     val port = config.getInt("http.port")
+    val db = config.getString("db.url")
+    println(db)
 
+    println("1")
+    def propOrEnv(key: String): Option[String] = sys.props.get(key).orElse(sys.env.get(key))
+    println(propOrEnv("db.url"))
+    println(propOrEnv("DATABASE_URL"))
     val service = new WebService()
 
     Http().bindAndHandle(service.route, interface, port)
