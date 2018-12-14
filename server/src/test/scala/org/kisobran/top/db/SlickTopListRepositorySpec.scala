@@ -1,4 +1,4 @@
-package org.kisobran.top.slick
+package org.kisobran.top.db
 
 import java.nio.file.Files
 

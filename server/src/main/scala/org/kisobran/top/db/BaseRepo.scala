@@ -1,4 +1,4 @@
-package org.kisobran.top.slick
+package org.kisobran.top.db
 
 import slick.jdbc.JdbcProfile
 import slick.lifted.{AbstractTable, CanBeQueryCondition, Query, TableQuery}

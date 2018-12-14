@@ -1,4 +1,4 @@
-package org.kisobran.top.slick
+package org.kisobran.top.db
 
 import java.time.{LocalDateTime, ZoneOffset}
 import java.util.UUID

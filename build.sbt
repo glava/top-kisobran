@@ -17,7 +17,8 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "com.h2database" % "h2" % "1.4.196",
     "com.typesafe.slick" %% "slick-codegen" % slickV,
     "com.typesafe.slick" %% "slick-hikaricp" % slickV,
-    "org.scalatest" %% "scalatest" % "3.0.3" % Test
+    "org.scalatest" %% "scalatest" % "3.0.3" % Test,
+    "org.postgresql" % "postgresql" % "42.0.0"
   ),
   WebKeys.packagePrefix in Assets := "public/",
   managedClasspath in Runtime += (packageBin in Assets).value,

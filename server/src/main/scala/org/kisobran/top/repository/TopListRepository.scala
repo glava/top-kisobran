@@ -1,6 +1,6 @@
 package org.kisobran.top.repository
 import org.kisobran.top.model.{Entry, TopList}
-import org.kisobran.top.slick.TopListEntries
+import org.kisobran.top.db.TopListEntries
 
 import scala.concurrent.Future
 
