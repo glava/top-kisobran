@@ -1,9 +1,29 @@
-@(entries: Option[org.kisobran.top.db.TopListEntries])
+@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean)
 
 
 @main("Lista") {
 
+
 @for(entry <- entries) {
+
+@if(message) {
+
+<div class="row" style="padding-top: 90px;" >
+    <div class="col-sm" >
+    </div>
+    <div class="col-sm">
+        <cite>
+            Bravo! Sačuvali smo tvoju listu. Čim bacimo oko i proverimo da su sve pesme iz
+        ove godine, objavljujemo ti listu na glavnoj strani. Do tada, možeš listu deliti sa ovim linkom:
+            <a href="/lista/@entry.id"> @entry.title</a>
+        </cite>
+    </div>
+    <div class="col-sm">
+    </div>
+</div>
+
+}
+
 
 <div class="row" style="padding-top: 60px;">
     <div class="col-sm">
