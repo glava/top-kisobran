@@ -11,21 +11,26 @@
     <div class="col-sm">
     </div>
 </div>
+
 <div class="row">
     <div class="col-sm">
     </div>
-    <div class="col-sm">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/4sk0uDbM5lc" frameborder="0"
+
+    <div class="col-sm-6">
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4sk0uDbM5lc" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
+    </div>
     </div>
     <div class="col-sm">
     </div>
 </div>
+
 <div class="row">
-    <div class="col-3">
+    <div class="col-sm">
     </div>
-    <div class="col-6">
+    <div class="col-sm">
         <blockquote class="blockquote text-center">
             <p class="mb-0">Biti precizan i dalek a opet topao i divan, biti za ples i za stondiranje, biti najbolji
                 to je za nas Jon Hopkins ove godine</p>
@@ -34,25 +39,25 @@
         </blockquote>
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
     </div>
-    <div class="col-3">
+    <div class="col-sm">
     </div>
 </div>
 
 <div class="row" style="padding-top: 60px;">
-    <div class="col-3">
+    <div class="col-2">
     </div>
-    <div class="col-6" style="text-align: center;">
+    <div class="col-8" style="text-align: center;">
         <h1>Top deset ove godine</h1>
     </div>
-    <div class="col-3">
+    <div class="col-2">
     </div>
 </div>
 
 <div class="row" style="padding-top: 60px;">
 
-    <div class="col-3">
+    <div class="col-sm">
     </div>
-    <div class="col-6">
+    <div class="col-sm">
         <h3>Divizija radosti</h3>
         <p>1. Arcade Fire – Everything Now<br>
             2. Portugal.the Man – Feel It Still<br>
@@ -78,9 +83,9 @@
 @for(entry <- entries) {
 <div class="row" style="padding-top: 60px;">
 
-    <div class="col-3">
+    <div class="col-2">
     </div>
-    <div class="col-6">
+    <div class="col-xs-12 col-8">
         <h3>@entry.title</h3>
         <p>1. @entry.artist1 – @entry.song1 <br>
             2. @entry.artist2 – @entry.song2 <br>
@@ -103,7 +108,7 @@
         </p>
 
     </div>
-    <div class="col-sm">
+    <div class="col-2">
     </div>
 </div>
 
