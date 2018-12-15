@@ -24,7 +24,7 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
 
     def title = column[String]("TITLE")
 
-    def userEmail = column[String]("USER_EMAIL")
+    def userEmail = column[Option[String]]("USER_EMAIL")
 
     def song1 = column[String]("SONG_1")
 
@@ -80,7 +80,7 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
   val topList = lifted.TableQuery[TopListTable]
 
 
-  override def createTopList(userEmail: String, entries: Seq[Entry], listName: String): Future[Option[TopListEntries]] = {
+  override def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String): Future[Option[TopListEntries]] = {
     val row = TopListEntries(
       UUID.randomUUID().toString,
       listName,
@@ -118,12 +118,15 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
   override def getTopList(id: String): Future[Option[TopListEntries]] =
     db.run(topList.filter(_.id === id).take(1).result.headOption)
 
+  override def getAll(): Future[Seq[TopListEntries]] =
+    db.run(topList.take(10).result)
+
   override def tables: Seq[SomeTable] = Seq(topList.asInstanceOf[SomeTable])
 }
 
 final case class TopListEntries(id: String,
                                 title: String,
-                                userEmail: String,
+                                userEmail: Option[String],
                                 song1: String,
                                 song2: String,
                                 song3: String,

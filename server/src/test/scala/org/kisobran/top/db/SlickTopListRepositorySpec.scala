@@ -23,7 +23,7 @@ class SlickTopListRepositorySpecextends extends FlatSpec
 
   "slickTopListRepository" should "play nice" in {
     val stored = slickTopListRepository.createTopList(
-      "use@somebody.com",
+      Some("use@somebody.com"),
       (1 to 10).map { i => Entry(s"artist${i}", s"song${i}") },
       "best-list"
     ).futureValue
@@ -31,7 +31,7 @@ class SlickTopListRepositorySpecextends extends FlatSpec
     val returned = slickTopListRepository.getTopList(stored.get.id).futureValue
 
     returned.get.title should be("best-list")
-    returned.get.userEmail should be("use@somebody.com")
+    returned.get.userEmail should be(Some("use@somebody.com"))
     returned.get.song1 should be("song1")
     returned.get.song2 should be("song2")
     returned.get.song3 should be("song3")
