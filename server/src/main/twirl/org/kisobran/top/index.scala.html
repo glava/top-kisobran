@@ -1,117 +1,84 @@
-@(message: String)
+@(entries: Seq[org.kisobran.top.db.TopListEntries])
+
 
 @main("Akka HTTP with Scala.js") {
-<form action="/glasaj" method="POST">
-    <div class="form-row">
-        <div class="form-group col-md-6">
 
-            <input type="text" class="form-control" id="color" name="inputArtist1" placeholder="1. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong1" placeholder="Pesma">
-        </div>
+<div class="row">
+    <div class="col-3" style="padding-top: 90px;">
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist2" name="inputArtist2" placeholder="2.  Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong2" placeholder="Pesma">
-        </div>
+    <div class="col-sm">
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist3" name="inputArtist3" placeholder="3. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong3" placeholder="Pesma">
-        </div>
+    <div class="col-sm">
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist4" name="inputArtist4" placeholder="4. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong4" placeholder="Pesma">
-        </div>
+</div>
+<div class="row">
+    <div class="col-sm">
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist5" name="inputArtist5" placeholder="5. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong5" placeholder="Pesma">
-        </div>
+    <div class="col-sm">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/4sk0uDbM5lc" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist6" name="inputArtist6" placeholder="6. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong6" placeholder="Pesma">
-        </div>
+    <div class="col-sm">
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist7" name="inputArtist7" placeholder="7. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong7" placeholder="Pesma">
-        </div>
+</div>
+<div class="row">
+    <div class="col-3">
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist8" name="inputArtist8" placeholder="8. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong8" placeholder="Pesma">
-        </div>
+    <div class="col-6">
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">Biti precizan i dalek a opet topao i divan, biti za ples i za stondiranje, biti najbolji
+                to je za nas Jon Hopkins ove godine</p>
+            <footer class="blockquote-footer"><cite title="Source Title"> Kišobran dj ekpia za deset mesto svoje
+                liste</cite></footer>
+        </blockquote>
+        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist9" name="inputArtist9" placeholder="9. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong9" placeholder="Pesma">
-        </div>
+    <div class="col-3">
     </div>
+</div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist10" name="inputArtist10" placeholder="10. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong10" placeholder="Pesma">
-        </div>
+<div class="row" style="padding-top: 60px;">
+    <div class="col-3">
     </div>
+    <div class="col-6" style="text-align: center;">
+        <h1>Top deset ove godine</h1>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
 
+<div class="row" style="padding-top: 60px;">
 
-    <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+        <h3>Divizija radosti</h3>
+        <p>1. Arcade Fire – Everything Now<br>
+            2. Portugal.the Man – Feel It Still<br>
+            3. Radiohead – Lift<br>
+            4. The War On Drugs – Strangest Thing<br>
+            5. The Chainsmokers &amp; Coldplay – Something Just Like This<br>
+            6. Tove Lo – Disco Tits<br>
+            7. Camel Phat – Cola<br>
+            8. Noel Galagher’s High Flying Birds – Holy Mountain<br>
+            9. Kasabian – You’re In Love With A Psycho<br>
+            10. Arcade Fire – Put Your Money On Me</p>
+        <p>
+            <iframe src="https://www.youtube.com/embed/QBGaO89cBMI" allow="autoplay; encrypted-media" allowfullscreen=""
+                    width="560" height="315" frameborder="0"></iframe>
+        </p>
+
+    </div>
+    <div class="col-sm">
+    </div>
+</div>
+
+<div class="">
+    <ul>
+        @for(entry <- entries) {
+        <li>@entry.title</li>
+        }
+    </ul>
+</div>
 }
