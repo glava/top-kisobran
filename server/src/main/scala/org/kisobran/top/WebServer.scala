@@ -24,18 +24,21 @@ object WebServer {
     val dbUrl = Try(config.getString("db.url"))
     val dbUser = Try(config.getString("db.user")).getOrElse("")
     val dbPassword = Try(config.getString("db.password")).getOrElse("")
-    val service = new WebService()
+    val dbProfile = Try(config.getString("db.profile")).map(_ => PostgresProfile).getOrElse(H2Profile)
 
     val source = dbUrl.map { url =>
       new DriverDataSource(url, user = dbUser, password = dbPassword, driverClassName = classOf[Driver].getName)
     }.getOrElse(DbTestConfiguration.testMySQL)
 
-    val topListRepository = new SlickTopListRepository(
-      source
-    )(PostgresProfile, ExecutionContext.global)
+    val topListRepository = new SlickTopListRepository(source)(dbProfile, ExecutionContext.global)
 
-    topListRepository.ensureTablesPresent(true)
+    // todo: move to liqubase
+    if (dbProfile == H2Profile)
+      topListRepository.ensureTablesPresent(true)
+    else
+      topListRepository.ensureTablesPresent(true)
 
+    val service = new WebService(topListRepository)(ExecutionContext.global)
     Http().bindAndHandle(service.route, interface, port)
 
     println(s"Server online at http://$interface:$port")
