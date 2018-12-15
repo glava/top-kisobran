@@ -41,12 +41,14 @@
             9. @entry.artist9 – @entry.song9 <br>
             10. @entry.artist10 – @entry.song10 </p>
         <p>
+        @for(y <- entry.ytLink) {
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QBGaO89cBMI" frameborder="0"
+            <iframe class="embed-responsive-item" src="@y" frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
             </iframe>
         </div>
+        }
         </p>
     </div>
     <div class="col-sm">
@@ -54,7 +56,8 @@
 </div>
 @if(admin) {
 <form action="/update" method="POST" style="padding-top:20px">
-    <input type="text" class="form-control" id="id" name="id" placeholder="Nazovi listu" value="@entry.id">
+    <input type="text" class="form-control" id="id" name="id" value="@entry.id">
+    <input type="text" class="form-control" id="yt_link" name="yt_link" placeholder="YouTube link">
     <button type="submit" class="btn btn-primary">Glasaj</button>
 </form>
 

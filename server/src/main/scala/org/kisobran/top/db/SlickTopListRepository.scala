@@ -70,12 +70,14 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
 
     def enabled = column[Boolean]("ENABLED")
 
+    def ytLink = column[Option[String]]("YT_LINK")
+
     def updatedAt = column[Long]("UPDATED_AT")
 
     def * = (
       id :: title :: userEmail ::
         song1 :: song2 :: song3 :: song4 :: song5 :: song6 :: song7 :: song8 :: song9 :: song10 ::
-        artist1 :: artist2 :: artist3 :: artist4 :: artist5 :: artist6 :: artist7 :: artist8 :: artist9 :: artist10 :: year :: updatedAt :: enabled :: HNil
+        artist1 :: artist2 :: artist3 :: artist4 :: artist5 :: artist6 :: artist7 :: artist8 :: artist9 :: artist10 :: year :: updatedAt :: enabled :: ytLink :: HNil
       ).mappedWith(Generic[TopListEntries])
   }
 
@@ -109,7 +111,8 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
       artist10 = entries(9).artist,
       year = 2018,
       createdAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC),
-      enabled = enabled
+      enabled = enabled,
+      ytLink = None
     )
 
     db.run(topList += row).map {
@@ -134,9 +137,9 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
 
   override def tables: Seq[SomeTable] = Seq(topList.asInstanceOf[SomeTable])
 
-  override def update(id: String): Future[Int] = {
-    val en = for { list <- topList.filter(_.id === id) } yield (list.enabled, list.updatedAt)
-    db.run(en.update(true, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)))
+  override def update(id: String, ytLink: Option[String]): Future[Int] = {
+    val en = for { list <- topList.filter(_.id === id) } yield (list.enabled, list.updatedAt, list.ytLink)
+    db.run(en.update(true, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), ytLink))
   }
 }
 
@@ -165,5 +168,6 @@ final case class TopListEntries(id: String,
                                 artist10: String,
                                 year: Int,
                                 createdAt: Long,
-                                enabled: Boolean
+                                enabled: Boolean,
+                                ytLink: Option[String]
                                )

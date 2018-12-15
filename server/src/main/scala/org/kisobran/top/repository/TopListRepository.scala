@@ -14,5 +14,5 @@ trait TopListRepository {
 
   def count(): Future[Int]
 
-  def update(id: String): Future[Int]
+  def update(id: String, ytLink: Option[String]): Future[Int]
 }

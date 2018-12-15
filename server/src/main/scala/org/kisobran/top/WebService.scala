@@ -53,7 +53,7 @@ class WebService(topListRepository: TopListRepository)(implicit executionContext
         post {
           formFieldMap { formContent =>
             complete {
-              topListRepository.update(formContent("id")).flatMap { x =>
+              topListRepository.update(formContent("id"), formContent.get("yt_link")).flatMap { x =>
                 topListRepository.select(limit, 0).map { all =>
                   org.kisobran.top.html.index.render(all, Some(1), None)
                 }
