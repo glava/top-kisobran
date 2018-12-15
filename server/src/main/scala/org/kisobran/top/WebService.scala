@@ -29,6 +29,15 @@ class WebService(topListRepository: TopListRepository)(implicit executionContext
           }
         }
       } ~
+      pathPrefix("lista" / Remaining) { id =>
+        get {
+          complete {
+            topListRepository.getTopList(id).map { lista =>
+              org.kisobran.top.html.lista.render(lista)
+            }
+          }
+        }
+      } ~
       pathPrefix("assets" / Remaining) { file =>
         // optionally compresses the response with Gzip or Deflate
         // if the client accepts compressed responses

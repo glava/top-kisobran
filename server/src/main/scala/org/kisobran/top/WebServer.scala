@@ -5,6 +5,7 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
 import org.kisobran.top.db.{DbTestConfiguration, SlickTopListRepository}
+import org.kisobran.top.model.Entry
 import org.postgresql.Driver
 import slick.jdbc.{DriverDataSource, H2Profile, PostgresProfile}
 
@@ -29,10 +30,18 @@ object WebServer {
     }.getOrElse(DbTestConfiguration.testMySQL)
 
     val topListRepository = new SlickTopListRepository(source)(dbProfile, ExecutionContext.global)
-
+    implicit val ex = ExecutionContext.global
     // todo: move to liqubase
-    if (dbProfile == H2Profile)
-      topListRepository.ensureTablesPresent(true)
+    if (dbProfile == H2Profile) {
+      topListRepository.ensureTablesPresent(true).map { _ =>
+        (1 to 20).map { t =>
+          topListRepository.createTopList(Some("use@somebody.com"),
+            (1 to 10).map { i => Entry(s"artist${i}", s"song${i}") },
+            s"${t}-best-list"
+          )
+        }
+      }
+    }
     else
       topListRepository.ensureTablesPresent(true)
 

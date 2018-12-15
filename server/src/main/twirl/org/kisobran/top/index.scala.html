@@ -1,7 +1,7 @@
 @(entries: Seq[org.kisobran.top.db.TopListEntries])
 
 
-@main("Akka HTTP with Scala.js") {
+@main("Liste") {
 
 <div class="row">
     <div class="col-3" style="padding-top: 90px;">
@@ -13,18 +13,18 @@
 </div>
 
 <div class="row">
-    <div class="col-sm">
-    </div>
-
+    <div class="col-sm"></div>
     <div class="col-sm-6">
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4sk0uDbM5lc" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item"
+                    src="https://www.youtube.com/embed/4sk0uDbM5lc"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
     </div>
-    </div>
-    <div class="col-sm">
-    </div>
+    <div class="col-sm"></div>
 </div>
 
 <div class="row">
@@ -32,10 +32,15 @@
     </div>
     <div class="col-sm">
         <blockquote class="blockquote text-center">
-            <p class="mb-0">Biti precizan i dalek a opet topao i divan, biti za ples i za stondiranje, biti najbolji
-                to je za nas Jon Hopkins ove godine</p>
-            <footer class="blockquote-footer"><cite title="Source Title"> Kišobran dj ekpia za deset mesto svoje
-                liste</cite></footer>
+            <p class="mb-0">
+                Biti precizan i dalek a opet topao i divan, biti za ples i za stondiranje, biti najbolji
+                to je za nas Jon Hopkins ove godine
+            </p>
+            <footer class="blockquote-footer">
+                <cite title="Source Title">
+                    Kišobran dj ekpia za deseto mesto svoje liste
+                </cite>
+            </footer>
         </blockquote>
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
     </div>
@@ -53,40 +58,13 @@
     </div>
 </div>
 
-<div class="row" style="padding-top: 60px;">
-
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
-        <h3>Divizija radosti</h3>
-        <p>1. Arcade Fire – Everything Now<br>
-            2. Portugal.the Man – Feel It Still<br>
-            3. Radiohead – Lift<br>
-            4. The War On Drugs – Strangest Thing<br>
-            5. The Chainsmokers &amp; Coldplay – Something Just Like This<br>
-            6. Tove Lo – Disco Tits<br>
-            7. Camel Phat – Cola<br>
-            8. Noel Galagher’s High Flying Birds – Holy Mountain<br>
-            9. Kasabian – You’re In Love With A Psycho<br>
-            10. Arcade Fire – Put Your Money On Me</p>
-        <p>
-            <iframe src="https://www.youtube.com/embed/QBGaO89cBMI" allow="autoplay; encrypted-media" allowfullscreen=""
-                    width="560" height="315" frameborder="0"></iframe>
-        </p>
-
-    </div>
-    <div class="col-sm">
-    </div>
-</div>
-
-
 @for(entry <- entries) {
-<div class="row" style="padding-top: 60px;">
 
-    <div class="col-2">
+<div class="row" style="padding-top: 60px;">
+    <div class="col-sm">
     </div>
-    <div class="col-xs-12 col-8">
-        <h3>@entry.title</h3>
+    <div class="col-sm">
+        <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
         <p>1. @entry.artist1 – @entry.song1 <br>
             2. @entry.artist2 – @entry.song2 <br>
             3. @entry.artist3 – @entry.song3 <br>
@@ -98,20 +76,17 @@
             9. @entry.artist9 – @entry.song9 <br>
             10. @entry.artist10 – @entry.song10 </p>
         <p>
-
-            <iframe src="https://www.youtube.com/embed/QBGaO89cBMI"
-                    allow="autoplay; encrypted-media"
-                    allowfullscreen=""
-                    width="560" height="315" frameborder="0">
-
-            </iframe>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QBGaO89cBMI" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+            </div>
         </p>
-
     </div>
-    <div class="col-2">
+    <div class="col-sm">
     </div>
 </div>
-
 }
 
 }
