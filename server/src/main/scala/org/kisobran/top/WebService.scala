@@ -23,13 +23,13 @@ class WebService(topListRepository: TopListRepository)(implicit executionContext
         }
       }
     } ~
-    pathPrefix("glasaj") {
-      get {
-        complete {
-          org.kisobran.top.html.glasaj.render(SharedMessages.itWorks)
+      pathPrefix("glasaj") {
+        get {
+          complete {
+            org.kisobran.top.html.glasaj.render(SharedMessages.itWorks)
+          }
         }
-      }
-    } ~
+      } ~
       pathPrefix("assets" / Remaining) { file =>
         // optionally compresses the response with Gzip or Deflate
         // if the client accepts compressed responses
@@ -47,12 +47,7 @@ class WebService(topListRepository: TopListRepository)(implicit executionContext
               }
               topListRepository.createTopList(formContent.get("email"), entries, formContent.getOrElse("listName", s"untilted-${UUID.randomUUID()}"))
 
-              s"${formContent.values.toString()}"
-
-                topListRepository.getAll().map { all =>
-                org.kisobran.top.html.index.render(all)
-              }
-
+              org.kisobran.top.html.voted.render()
             }
           }
         }
