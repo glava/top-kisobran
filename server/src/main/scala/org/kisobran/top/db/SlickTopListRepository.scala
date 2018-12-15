@@ -119,7 +119,7 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
     db.run(topList.filter(_.id === id).take(1).result.headOption)
 
   override def select(limit: Int, offset: Int): Future[Seq[TopListEntries]] =
-    db.run(topList.drop(offset).take(limit).result)
+    db.run(topList.sortBy(_.createdAt.desc).drop(offset).take(limit).result)
 
   override def count() =
     db.run(topList.size.result)
