@@ -1,129 +1,174 @@
 @(message: String)
 
 @main("Akka HTTP with Scala.js") {
-<form action="/vote" method="POST" style="padding-top:120px">
-    <div class="form-row">
-        <div class="form-group col-md-3">
-        </div>
-        <div class="form-group col-md-6">
 
-            <input type="text" class="form-control" id="listName" name="listName" placeholder="Nazovi listu">
-        </div>
-        <div class="form-group col-md-3">
-        </div>
+<div class="row" style="padding-top: 60px;">
+    <div class="col-2">
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="color" name="inputArtist1" placeholder="1. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong1" name="inputSong1" placeholder="Pesma">
-        </div>
+    <div class="col-8" style="text-align: center;">
+        <h2>Napravi svoju listu top deset pesama izdatih u 2018.</h2>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist2" name="inputArtist2" placeholder="2.  Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong2" name="inputSong2" placeholder="Pesma">
-        </div>
+    <div class="col-2">
     </div>
+</div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
+<div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm-6">
+        <form action="/vote" method="POST" style="padding-top:20px">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                </div>
+                <div class="form-group col-md-6">
 
-            <input type="text" class="form-control" id="inputArtist3" name="inputArtist3" placeholder="3. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="listName" name="listName" placeholder="Nazovi listu">
+                </div>
+                <div class="form-group col-md-3">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
 
-            <input type="text" class="form-control" id="inputSong3" name="inputSong3" placeholder="Pesma">
-        </div>
+                    <input type="text" class="form-control" id="color" name="inputArtist1" placeholder="1. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong1" name="inputSong1" placeholder="Pesma">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist2" name="inputArtist2"
+                           placeholder="2.  Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong2" name="inputSong2" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist3" name="inputArtist3"
+                           placeholder="3. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong3" name="inputSong3" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist4" name="inputArtist4"
+                           placeholder="4. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong4" name="inputSong4" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist5" name="inputArtist5"
+                           placeholder="5. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong5" name="inputSong5" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist6" name="inputArtist6"
+                           placeholder="6. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong6" name="inputSong6" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist7" name="inputArtist7"
+                           placeholder="7. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong7" name="inputSong7" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist8" name="inputArtist8"
+                           placeholder="8. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong8" name="inputSong8" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist9" name="inputArtist9"
+                           placeholder="9. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong9" name="inputSong9" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputArtist10" name="inputArtist10"
+                           placeholder="10. Izvodjač">
+                </div>
+                <div class="form-group col-md-6">
+
+                    <input type="text" class="form-control" id="inputSong10" name="inputSong10" placeholder="Pesma">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="userEmail" name="userEmail"
+                           placeholder="Tvoj email za pozivnicu (nije obavezno)">
+                </div>
+                <div class="form-group col-md-3">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                </div>
+                <div class="form-group col-md-6" style="align-content: center;text-align: center;">
+                    <button type="submit" class="btn btn-primary">Glasaj</button>
+                </div>
+                <div class="form-group col-md-3">
+                </div>
+            </div>
+
+        </form>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist4" name="inputArtist4" placeholder="4. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong4" name="inputSong4" placeholder="Pesma">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist5" name="inputArtist5" placeholder="5. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong5" name="inputSong5" placeholder="Pesma">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist6" name="inputArtist6" placeholder="6. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong6" name="inputSong6" placeholder="Pesma">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist7" name="inputArtist7" placeholder="7. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong7" name="inputSong7" placeholder="Pesma">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist8" name="inputArtist8" placeholder="8. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong8" name="inputSong8" placeholder="Pesma">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist9" name="inputArtist9" placeholder="9. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong9" name="inputSong9" placeholder="Pesma">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputArtist10" name="inputArtist10" placeholder="10. Izvodjač">
-        </div>
-        <div class="form-group col-md-6">
-
-            <input type="text" class="form-control" id="inputSong10" name="inputSong10" placeholder="Pesma">
-        </div>
-    </div>
-
-
-    <button type="submit" class="btn btn-primary">Glasaj</button>
-</form>
+    <div class="col-sm"></div>
+</div>
 }
 <script>
 $('html').bind('keypress', function(e) {
@@ -149,5 +194,7 @@ $('body').on('keydown', 'input, select, textarea', function(e) {
         return false;
     }
 });
+
+
 
 </script>
