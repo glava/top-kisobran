@@ -28,7 +28,7 @@ class SlickTopListRepositorySpecextends extends FlatSpec
       "best-list"
     ).futureValue
 
-    val returned = slickTopListRepository.getTopList(stored.get.id).futureValue
+    val returned = slickTopListRepository.findTopList(stored.get.id).futureValue
 
     returned.get.title should be("best-list")
     returned.get.userEmail should be(Some("use@somebody.com"))
