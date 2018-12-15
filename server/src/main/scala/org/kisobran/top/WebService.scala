@@ -3,8 +3,7 @@ package org.kisobran.top
 import java.util.UUID
 
 import akka.http.scaladsl.server.Directives
-import org.kisobran.top.db.TopListEntries
-import org.kisobran.top.model.{Entry, TopList}
+import org.kisobran.top.model.Entry
 import org.kisobran.top.repository.TopListRepository
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
