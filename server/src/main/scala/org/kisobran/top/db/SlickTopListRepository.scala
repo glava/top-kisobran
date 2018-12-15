@@ -68,19 +68,21 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
 
     def year = column[Int]("YEAR")
 
-    def createdAt = column[Long]("CREATED_AT")
+    def enabled = column[Boolean]("ENABLED")
+
+    def updatedAt = column[Long]("UPDATED_AT")
 
     def * = (
       id :: title :: userEmail ::
         song1 :: song2 :: song3 :: song4 :: song5 :: song6 :: song7 :: song8 :: song9 :: song10 ::
-        artist1 :: artist2 :: artist3 :: artist4 :: artist5 :: artist6 :: artist7 :: artist8 :: artist9 :: artist10 :: year :: createdAt :: HNil
+        artist1 :: artist2 :: artist3 :: artist4 :: artist5 :: artist6 :: artist7 :: artist8 :: artist9 :: artist10 :: year :: updatedAt :: enabled :: HNil
       ).mappedWith(Generic[TopListEntries])
   }
 
   val topList = lifted.TableQuery[TopListTable]
 
 
-  override def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String): Future[Option[TopListEntries]] = {
+  override def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String, enabled: Boolean = false): Future[Option[TopListEntries]] = {
     val row = TopListEntries(
       UUID.randomUUID().toString,
       listName,
@@ -106,7 +108,8 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
       artist9 = entries(8).artist,
       artist10 = entries(9).artist,
       year = 2018,
-      createdAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+      createdAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC),
+      enabled = enabled
     )
 
     db.run(topList += row).map {
@@ -119,12 +122,22 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
     db.run(topList.filter(_.id === id).take(1).result.headOption)
 
   override def select(limit: Int, offset: Int): Future[Seq[TopListEntries]] =
-    db.run(topList.sortBy(_.createdAt.desc).drop(offset).take(limit).result)
+    db.run(topList.filter(_.enabled === true)
+      .sortBy(_.updatedAt.desc)
+      .drop(offset)
+      .take(limit)
+      .result
+    )
 
   override def count() =
     db.run(topList.size.result)
 
   override def tables: Seq[SomeTable] = Seq(topList.asInstanceOf[SomeTable])
+
+  override def update(id: String): Future[Int] = {
+    val en = for { list <- topList.filter(_.id === id) } yield (list.enabled, list.updatedAt)
+    db.run(en.update(true, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)))
+  }
 }
 
 final case class TopListEntries(id: String,
@@ -151,5 +164,6 @@ final case class TopListEntries(id: String,
                                 artist9: String,
                                 artist10: String,
                                 year: Int,
-                                createdAt: Long
+                                createdAt: Long,
+                                enabled: Boolean
                                )

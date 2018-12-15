@@ -54,6 +54,8 @@ class SlickTopListRepositorySpecextends extends FlatSpec
     returned.get.artist9 should be("artist9")
     returned.get.artist10 should be("artist10")
 
+    returned.get.enabled should be(false)
+
   }
 
 }

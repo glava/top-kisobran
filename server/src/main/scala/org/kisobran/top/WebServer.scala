@@ -37,7 +37,8 @@ object WebServer {
         (1 to 20).map { t =>
           topListRepository.createTopList(Some("use@somebody.com"),
             (1 to 10).map { i => Entry(s"artist${i}", s"song${i}") },
-            s"${t}-best-list"
+            s"${t}-best-list",
+            true
           )
         }
       }

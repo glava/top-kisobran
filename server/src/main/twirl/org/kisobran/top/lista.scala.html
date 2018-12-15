@@ -1,4 +1,4 @@
-@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean)
+@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean)
 
 
 @main("Lista") {
@@ -52,6 +52,14 @@
     <div class="col-sm">
     </div>
 </div>
+@if(admin) {
+<form action="/update" method="POST" style="padding-top:20px">
+    <input type="text" class="form-control" id="id" name="id" placeholder="Nazovi listu" value="@entry.id">
+    <button type="submit" class="btn btn-primary">Glasaj</button>
+</form>
+
+}
+
 }
 
 }

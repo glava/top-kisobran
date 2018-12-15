@@ -35,7 +35,29 @@ class WebService(topListRepository: TopListRepository)(implicit executionContext
         get {
           complete {
             topListRepository.findTopList(id).map { lista =>
-              org.kisobran.top.html.lista.render(lista, false)
+              org.kisobran.top.html.lista.render(lista, false, false)
+            }
+          }
+        }
+      } ~
+      pathPrefix("admin" / Remaining) { id =>
+        get {
+          complete {
+            topListRepository.findTopList(id).map { lista =>
+              org.kisobran.top.html.lista.render(lista, false, true)
+            }
+          }
+        }
+      } ~
+      pathPrefix("update") {
+        post {
+          formFieldMap { formContent =>
+            complete {
+              topListRepository.update(formContent("id")).flatMap { x =>
+                topListRepository.select(limit, 0).map { all =>
+                  org.kisobran.top.html.index.render(all, Some(1), None)
+                }
+              }
             }
           }
         }
@@ -70,7 +92,7 @@ class WebService(topListRepository: TopListRepository)(implicit executionContext
                 Entry(formContent(s"inputArtist$index"), formContent(s"inputSong$index"))
               }
               topListRepository.createTopList(formContent.get("userEmail"), entries, formContent.getOrElse("listName", s"untilted-${UUID.randomUUID()}")).map { x =>
-                org.kisobran.top.html.lista.render(x, true)
+                org.kisobran.top.html.lista.render(x, true, false)
               }
             }
           }
