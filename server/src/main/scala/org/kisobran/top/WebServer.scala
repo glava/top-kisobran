@@ -39,8 +39,8 @@ object WebServer {
       }
     }
     else {
-      statsRepository.ensureTablesPresent(true)
-      topListRepository.ensureTablesPresent(true)
+      statsRepository.ensureTablesPresent(false)
+      topListRepository.ensureTablesPresent(false)
     }
 
 
