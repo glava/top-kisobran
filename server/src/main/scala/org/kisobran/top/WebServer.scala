@@ -22,23 +22,27 @@ object WebServer {
     }.getOrElse(DbTestConfiguration.testMySQL)
 
     val topListRepository = new SlickTopListRepository(source)(dbProfile, ExecutionContext.global)
+    val statsRepository = new SlickStatsRepository(source)(dbProfile, ExecutionContext.global)
+
     implicit val ex = ExecutionContext.global
     // todo: move to liqubase
     if (dbProfile == H2Profile) {
+      statsRepository.ensureTablesPresent(true)
       topListRepository.ensureTablesPresent(true).map { _ =>
         (1 to 20).map { t =>
           topListRepository.createTopList(Some("use@somebody.com"),
-            (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) },
-            s"${t}-best-list",
-            false
+          (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) },
+          s"${t}-best-list",
+          false
           )
         }
       }
     }
-    else
+    else {
+      statsRepository.ensureTablesPresent(true)
       topListRepository.ensureTablesPresent(true)
+    }
 
-    val statsRepository = new SlickStatsRepository(source)(dbProfile, ExecutionContext.global)
 
     val service = new TopListService(topListRepository, statsRepository)(ExecutionContext.global)
     Http().bindAndHandle(service.route, interface, port)
