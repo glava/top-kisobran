@@ -115,14 +115,18 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
         post {
           formFieldMap { formContent =>
             complete {
-
+              val title = formContent.getOrElse("listName", s"untilted-${UUID.randomUUID()}")
               val entries = (1 to 10).map { index =>
                 Entry(formContent(s"inputArtist$index"), formContent(s"inputSong$index"), index, index)
               }
+
+              println(title)
+              println(entries)
+
               topListRepository.createTopList(
                 formContent.get("userEmail"),
                 entries,
-                formContent.getOrElse("listName", s"untilted-${UUID.randomUUID()}")
+                title
               ).map { topListEntry =>
                 val insertOperation: Future[Seq[Stats]] = topListEntry.map { topList =>
                     statsRepository.createStats(topList.id, entries)
