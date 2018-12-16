@@ -2,18 +2,25 @@ package org.kisobran.top
 
 import java.util.UUID
 
+import akka.http.scaladsl.server.directives.Credentials
 import akka.http.scaladsl.server.{Directives, Route}
 import org.kisobran.top.db.Stats
 import org.kisobran.top.model.Entry
 import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
-
+import Configuration._
 import scala.concurrent.{ExecutionContext, Future}
 
 class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)(implicit executionContext: ExecutionContext) extends Directives {
 
   val limit = 10
+
+  def myUserPassAuthenticator(credentials: Credentials): Option[String] =
+    credentials match {
+      case p @ Credentials.Provided(id) if p.verify(adminPassword) => Some(id)
+      case _ => None
+    }
 
   val route: Route = {
     pathSingleSlash {
@@ -42,21 +49,23 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
         }
       } ~
       pathPrefix("admin") {
-        parameters('id ?) { maybeId =>
-          get {
-            complete {
-              maybeId match {
-                case Some(id) =>
-                  topListRepository.findTopList(id).map { lista =>
-                    org.kisobran.top.html.lista.render(lista, false, true)
-                  }
-                case None =>
-                  topListRepository.select(100, 0, isEnabled = false).map { all =>
-                    org.kisobran.top.html.admin.render(all)
-                  }
+        authenticateBasic(realm = "secure site", myUserPassAuthenticator) { userName =>
+          parameters('id ?) { maybeId =>
+            get {
+              complete {
+                maybeId match {
+                  case Some(id) =>
+                    topListRepository.findTopList(id).map { lista =>
+                      org.kisobran.top.html.lista.render(lista, false, true)
+                    }
+                  case None =>
+                    topListRepository.select(100, 0, isEnabled = false).map { all =>
+                      org.kisobran.top.html.admin.render(all)
+                    }
+                }
+
+
               }
-
-
             }
           }
         }
