@@ -10,6 +10,9 @@ import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
 import Configuration._
+import org.kisobran.top.model.Highlight._
+
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)(implicit executionContext: ExecutionContext) extends Directives {
@@ -26,8 +29,9 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
     pathSingleSlash {
       get {
         complete {
+
           topListRepository.select(limit, 0, isEnabled = true).map { all =>
-            org.kisobran.top.html.index.render(all, Some(1), None)
+            org.kisobran.top.html.index.render(all, Some(1), None, element())
           }
         }
       }
@@ -76,7 +80,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
             complete {
               topListRepository.update(formContent("id"), formContent.get("yt_link")).flatMap { x =>
                 topListRepository.select(limit, 0, isEnabled = true).map { all =>
-                  org.kisobran.top.html.index.render(all, Some(1), None)
+                  org.kisobran.top.html.index.render(all, Some(1), None, element())
                 }
               }
             }
@@ -98,7 +102,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
               topListRepository.select(limit, limit * page, isEnabled = true).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
-                org.kisobran.top.html.index.render(all, forwardPage, backPage)
+                org.kisobran.top.html.index.render(all, forwardPage, backPage, element())
               }
             }
           }
