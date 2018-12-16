@@ -8,13 +8,13 @@
 
 @if(message) {
 
-<div class="row" style="padding-top: 90px;" >
-    <div class="col-sm" >
+<div class="row" style="padding-top: 90px;">
+    <div class="col-sm">
     </div>
     <div class="col-sm">
         <cite>
             Bravo! Sačuvali smo tvoju listu. Čim bacimo oko i proverimo da su sve pesme iz
-        ove godine, objavljujemo ti listu na glavnoj strani. Do tada, možeš listu deliti sa ovim linkom:
+            ove godine, objavljujemo ti listu na glavnoj strani. Do tada, možeš listu deliti sa ovim linkom:
             <a href="/lista/@entry.id"> @entry.title</a> ili možeš uživati u drugim <a href="/">listama</a>
         </cite>
     </div>
@@ -41,7 +41,7 @@
             9. @entry.artist9 – @entry.song9 <br>
             10. @entry.artist10 – @entry.song10 </p>
         <p>
-        @for(y <- entry.ytLink) {
+            @for(y <- entry.ytLink) {
         <div class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item" src="@y" frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -56,9 +56,15 @@
 </div>
 @if(admin) {
 <form action="/update" method="POST" style="padding-top:20px">
-    <input type="text" class="form-control" id="id" name="id" value="@entry.id">
-    <input type="text" class="form-control" id="yt_link" name="yt_link" placeholder="YouTube link">
-    <button type="submit" class="btn btn-primary">Glasaj</button>
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+        <input type="text" class="form-control" id="id" name="id" value="@entry.id">
+        <input type="text" class="form-control" id="yt_link" name="yt_link" placeholder="YouTube link">
+        <button type="submit" class="btn btn-primary">Enable</button>
+    </div>
+    <div class="col-sm">
+    </div>
 </form>
 
 }

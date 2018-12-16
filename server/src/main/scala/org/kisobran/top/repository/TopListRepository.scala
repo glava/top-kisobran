@@ -10,7 +10,7 @@ trait TopListRepository {
 
   def findTopList(id: String): Future[Option[TopListEntries]]
 
-  def select(limit: Int, offset: Int): Future[Seq[TopListEntries]]
+  def select(limit: Int, offset: Int, isEnabled: Boolean): Future[Seq[TopListEntries]]
 
   def count(): Future[Int]
 

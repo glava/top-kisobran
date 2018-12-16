@@ -19,7 +19,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
     pathSingleSlash {
       get {
         complete {
-          topListRepository.select(limit, 0).map { all =>
+          topListRepository.select(limit, 0, isEnabled = true).map { all =>
             org.kisobran.top.html.index.render(all, Some(1), None)
           }
         }
@@ -41,11 +41,22 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
           }
         }
       } ~
-      pathPrefix("admin" / Remaining) { id =>
-        get {
-          complete {
-            topListRepository.findTopList(id).map { lista =>
-              org.kisobran.top.html.lista.render(lista, false, true)
+      pathPrefix("admin") {
+        parameters('id ?) { maybeId =>
+          get {
+            complete {
+              maybeId match {
+                case Some(id) =>
+                  topListRepository.findTopList(id).map { lista =>
+                    org.kisobran.top.html.lista.render(lista, false, true)
+                  }
+                case None =>
+                  topListRepository.select(100, 0, isEnabled = false).map { all =>
+                    org.kisobran.top.html.admin.render(all)
+                  }
+              }
+
+
             }
           }
         }
@@ -55,7 +66,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
           formFieldMap { formContent =>
             complete {
               topListRepository.update(formContent("id"), formContent.get("yt_link")).flatMap { x =>
-                topListRepository.select(limit, 0).map { all =>
+                topListRepository.select(limit, 0, isEnabled = true).map { all =>
                   org.kisobran.top.html.index.render(all, Some(1), None)
                 }
               }
@@ -75,7 +86,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
           complete {
             val page = pageS.toInt
             topListRepository.count().flatMap { count =>
-              topListRepository.select(limit, limit * page).map { all =>
+              topListRepository.select(limit, limit * page, isEnabled = true).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
                 org.kisobran.top.html.index.render(all, forwardPage, backPage)
