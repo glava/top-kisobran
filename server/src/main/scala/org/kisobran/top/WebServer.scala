@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
-import org.kisobran.top.db.{DbTestConfiguration, SlickTopListRepository}
+import org.kisobran.top.db.{DbTestConfiguration, SlickStatsRepository, SlickTopListRepository}
 import org.kisobran.top.model.Entry
 import org.postgresql.Driver
 import slick.jdbc.{DriverDataSource, H2Profile, PostgresProfile}
@@ -36,7 +36,7 @@ object WebServer {
       topListRepository.ensureTablesPresent(true).map { _ =>
         (1 to 20).map { t =>
           topListRepository.createTopList(Some("use@somebody.com"),
-            (1 to 10).map { i => Entry(s"artist${i}", s"song${i}") },
+            (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) },
             s"${t}-best-list",
             true
           )
@@ -46,7 +46,9 @@ object WebServer {
     else
       topListRepository.ensureTablesPresent(true)
 
-    val service = new WebService(topListRepository)(ExecutionContext.global)
+    val statsRepository = new SlickStatsRepository(source)(dbProfile, ExecutionContext.global)
+
+    val service = new TopListService(topListRepository, statsRepository)(ExecutionContext.global)
     Http().bindAndHandle(service.route, interface, port)
 
     println(s"Server online at http://$interface:$port")

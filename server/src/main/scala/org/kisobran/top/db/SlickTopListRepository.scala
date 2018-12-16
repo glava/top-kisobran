@@ -83,10 +83,11 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
 
   val topList = lifted.TableQuery[TopListTable]
 
+  def idGenerator = UUID.randomUUID().toString
 
   override def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String, enabled: Boolean = false): Future[Option[TopListEntries]] = {
     val row = TopListEntries(
-      UUID.randomUUID().toString,
+      idGenerator,
       listName,
       userEmail,
       song1 = entries.head.song,

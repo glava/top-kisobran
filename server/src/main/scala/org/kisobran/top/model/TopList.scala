@@ -8,6 +8,6 @@ case class TopList(id: Long,
                    title: String,
                    created: Long)
 
-case class Entry(artist: String, song: String)
+case class Entry(artist: String, song: String, position: Int, points: Int)
 
 
