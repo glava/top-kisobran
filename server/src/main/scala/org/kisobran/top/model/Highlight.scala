@@ -14,11 +14,17 @@ object Highlight {
   )
 
   private val goran = Highlight(
-    "Glava",
+    "Glava iz Švabije",
     yt = "https://www.youtube.com/embed/sh5exYGe_Qg",
-    "Kada god slušam Cat Power uveren sam da će sve biti ok. Čak kada je mračno kao u Black pesmi"
+    "Kada god slušam Cat Power uveren sam da će sve biti ok. Čak i kada je mračno kao u Black pesmi"
   )
-  val items = Seq(rale, goran)
+
+  private val milan = Highlight(
+    "Midnight Citizen",
+    yt = "https://www.youtube.com/embed/4sk0uDbM5lc",
+    "Ne postoji bolja pesma za vetar, sunce, oluju, sneg, noć, trčanje, tunel, praznu ulicu, samoću, hangar, bogove. Jon je maestro koji se uvlači pod kožu i izaziva jezu kroz svaku poru."
+  )
+  val items = Seq(rale, goran, milan)
 
   def element() = {
     val random = new Random
