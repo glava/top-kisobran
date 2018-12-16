@@ -1,6 +1,7 @@
 import sbtcrossproject.{crossProject, CrossType}
 val slickV = "3.2.1"
-
+enablePlugins(NewRelic)
+newrelicVersion := "4.5.0"
 lazy val server = (project in file("server")).settings(commonSettings).settings(
   scalaJSProjects := Seq(client),
   pipelineStages in Assets := Seq(scalaJSPipeline),
