@@ -1,6 +1,5 @@
 import sbtcrossproject.{crossProject, CrossType}
 val slickV = "3.2.1"
-enablePlugins(NewRelic)
 newrelicVersion := "4.5.0"
 lazy val server = (project in file("server")).settings(commonSettings).settings(
   scalaJSProjects := Seq(client),
@@ -27,7 +26,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   managedClasspath in Runtime += (packageBin in Assets).value,
   // Compile the project before generating Eclipse files, so that generated .scala or .class files for Twirl templates are present
   EclipseKeys.preTasks := Seq(compile in Compile)
-).enablePlugins(SbtWeb, SbtTwirl, JavaAppPackaging).
+).enablePlugins(SbtWeb, SbtTwirl, JavaAppPackaging, NewRelic).
   dependsOn(sharedJvm)
 
 lazy val client = (project in file("client")).settings(commonSettings).settings(
