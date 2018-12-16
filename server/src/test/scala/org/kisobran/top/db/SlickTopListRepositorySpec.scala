@@ -24,7 +24,7 @@ class SlickTopListRepositorySpecextends extends FlatSpec
   "slickTopListRepository" should "play nice" in {
     val stored = slickTopListRepository.createTopList(
       Some("use@somebody.com"),
-      (1 to 10).map { i => Entry(s"artist${i}", s"song${i}") },
+      (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) },
       "best-list"
     ).futureValue
 

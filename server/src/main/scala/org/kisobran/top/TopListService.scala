@@ -63,6 +63,13 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
           }
         }
       } ~
+      pathPrefix("pravila") {
+        get {
+          complete {
+            org.kisobran.top.html.pravila.render()
+          }
+        }
+      } ~
       pathPrefix("liste") {
         parameters('page) { pageS =>
           complete {
