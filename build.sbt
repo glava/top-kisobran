@@ -16,6 +16,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "io.underscore"      %% "slickless" % "0.3.3",
     "com.typesafe.slick" %% "slick" % slickV,
     "com.h2database" % "h2" % "1.4.196",
+    "org.jsoup" % "jsoup" % "1.7.2",
     "com.typesafe.slick" %% "slick-codegen" % slickV,
     "com.typesafe.slick" %% "slick-hikaricp" % slickV,
     "org.scalatest" %% "scalatest" % "3.0.3" % Test,

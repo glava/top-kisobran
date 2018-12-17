@@ -85,7 +85,7 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
 
   def idGenerator = UUID.randomUUID().toString
 
-  override def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String, enabled: Boolean = false): Future[Option[TopListEntries]] = {
+  override def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String, enabled: Boolean, year: Int, ytLink: Option[String] = None): Future[Option[TopListEntries]] = {
     val row = TopListEntries(
       idGenerator,
       listName,
@@ -110,10 +110,10 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
       artist8 = entries(7).artist,
       artist9 = entries(8).artist,
       artist10 = entries(9).artist,
-      year = 2018,
+      year = year,
       createdAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC),
       enabled = enabled,
-      ytLink = None
+      ytLink = ytLink
     )
 
     db.run(topList += row).map {
@@ -125,16 +125,16 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
   override def findTopList(id: String): Future[Option[TopListEntries]] =
     db.run(topList.filter(_.id === id).take(1).result.headOption)
 
-  override def select(limit: Int, offset: Int, isEnabled: Boolean): Future[Seq[TopListEntries]] =
-    db.run(topList.filter(_.enabled === isEnabled)
+  override def select(limit: Int, offset: Int, isEnabled: Boolean, year: Int): Future[Seq[TopListEntries]] =
+    db.run(topList.filter(_.enabled === isEnabled).filter(_.year === year)
       .sortBy(_.updatedAt.desc)
       .drop(offset)
       .take(limit)
       .result
     )
 
-  override def count() =
-    db.run(topList.size.result)
+  override def count(year: Int = 2018) =
+    db.run(topList.filter(_.year === year).size.result)
 
   override def tables: Seq[SomeTable] = Seq(topList.asInstanceOf[SomeTable])
 

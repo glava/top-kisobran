@@ -1,29 +1,28 @@
-@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean)
+@(entries: Seq[org.kisobran.top.db.TopListEntries], forwardPage: Option[Int], backPage: Option[Int], year: Int)
 
 
-@main("Lista") {
+@main("Liste") {
 
-
-@for(entry <- entries) {
-
-@if(message) {
-
-<div class="row" style="padding-top: 90px;">
-    <div class="col-sm">
+<div class="row">
+    <div class="col-3" style="padding-top: 90px;">
     </div>
     <div class="col-sm">
-        <cite>
-            Bravo! Sačuvali smo tvoju listu. Čim bacimo oko i proverimo da su sve pesme iz
-            ove godine, objavljujemo ti listu na glavnoj strani. Do tada, možeš listu deliti sa ovim linkom:
-            <a href="/lista/@entry.id"> @entry.title</a> ili možeš uživati u drugim <a href="/">listama</a>
-        </cite>
     </div>
     <div class="col-sm">
     </div>
 </div>
 
-}
+<div class="row" style="padding-top: 60px;">
+    <div class="col-2">
+    </div>
+    <div class="col-8" style="text-align: center;">
+        <h1>Top deset @year. godine</h1>
+    </div>
+    <div class="col-2">
+    </div>
+</div>
 
+@for(entry <- entries) {
 
 <div class="row" style="padding-top: 60px;">
     <div class="col-sm">
@@ -54,21 +53,21 @@
     <div class="col-sm">
     </div>
 </div>
-@if(admin) {
-<form action="/update" method="POST" style="padding-top:20px">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
-        <input type="text" class="form-control" id="id" name="id" value="@entry.id">
-        <input type="text" class="form-control" id="yt_link" name="yt_link" value="@entry.ytLink" placeholder="YouTube link">
-        <button type="submit" class="btn btn-primary">Enable</button>
-    </div>
-    <div class="col-sm">
-    </div>
-</form>
-
 }
 
-}
+<div class="row" style="padding-top: 10px;">
+    <div class="col-sm" style="text-align: right;">
+        @for(p <- backPage) {
+        <a href="/arhiva?page=@p&p&year=@year">← Vrati se nazad </a>
+        }
+    </div>
+    <div class="col-sm" style="text-align: center;">
+    </div>
+    <div class="col-sm">
+        @for(p <- forwardPage) {
+        <a href="/arhiva?page=@p&year=@year">Još listi →</a>
+        }
+    </div>
+</div>
 
 }

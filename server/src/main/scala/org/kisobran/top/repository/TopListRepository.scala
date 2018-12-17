@@ -6,13 +6,19 @@ import scala.concurrent.Future
 
 trait TopListRepository {
 
-  def createTopList(userEmail: Option[String], entries: Seq[Entry], listName: String, enabled: Boolean = false): Future[Option[TopListEntries]]
+  def createTopList(userEmail: Option[String],
+                    entries: Seq[Entry],
+                    listName: String,
+                    enabled: Boolean = false,
+                    year: Int,
+                    ytLink: Option[String] = None
+                   ): Future[Option[TopListEntries]]
 
   def findTopList(id: String): Future[Option[TopListEntries]]
 
-  def select(limit: Int, offset: Int, isEnabled: Boolean): Future[Seq[TopListEntries]]
+  def select(limit: Int, offset: Int, isEnabled: Boolean, year:Int): Future[Seq[TopListEntries]]
 
-  def count(): Future[Int]
+  def count(year: Int = 2018): Future[Int]
 
   def update(id: String, ytLink: Option[String]): Future[Int]
 }
