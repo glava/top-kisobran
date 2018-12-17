@@ -4,18 +4,28 @@ import java.util.UUID
 
 import akka.http.scaladsl.server.directives.Credentials
 import akka.http.scaladsl.server.{Directives, Route}
-import org.kisobran.top.db.Stats
+import org.kisobran.top.db.{Stats, TopListEntries}
 import org.kisobran.top.model.Entry
 import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
 import Configuration._
+import com.github.blemale.scaffeine
+import com.github.blemale.scaffeine.Scaffeine
 import org.kisobran.top.model.Highlight._
-
-
+import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
 class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)(implicit executionContext: ExecutionContext) extends Directives {
+
+  val selectCache: scaffeine.AsyncLoadingCache[(Int, Int, Boolean, Int), Seq[TopListEntries]] =
+    Scaffeine()
+      .recordStats()
+      .expireAfterWrite(40.minutes)
+      .maximumSize(100)
+      .buildAsyncFuture[(Int, Int, Boolean, Int), Seq[TopListEntries]] {
+      case (limit, offset, isEnabled, year) => topListRepository.select(limit, offset, isEnabled, year)
+    }
 
   val limit = 10
   val currentYear = 2018
@@ -30,8 +40,8 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
     pathSingleSlash {
       get {
         complete {
-          topListRepository.select(limit, 0, isEnabled = true, year = currentYear).map { all =>
-            org.kisobran.top.html.index.render(all, Some(1), None, element())
+          selectCache.get(20, 0, true, currentYear).map { all =>
+            org.kisobran.top.html.index.render(all, None, None, element())
           }
         }
       }
@@ -54,7 +64,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
       } ~
       pathPrefix("admin") {
         authenticateBasic(realm = "secure site", myUserPassAuthenticator) { userName =>
-          parameters('id ?, 'year?) { (maybeId, maybeYear) =>
+          parameters('id ?, 'year ?) { (maybeId, maybeYear) =>
             get {
               complete {
                 maybeId match {
@@ -63,7 +73,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
                       org.kisobran.top.html.lista.render(lista, false, true)
                     }
                   case None =>
-                    topListRepository.select(100, 0, isEnabled = false, year = maybeYear.map(_.toInt).getOrElse(currentYear)).map { all =>
+                    selectCache.get(100, 0, false, maybeYear.map(_.toInt).getOrElse(currentYear)).map { all =>
                       org.kisobran.top.html.admin.render(all)
                     }
                 }
@@ -79,7 +89,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
           formFieldMap { formContent =>
             complete {
               topListRepository.update(formContent("id"), formContent.get("yt_link")).flatMap { x =>
-                topListRepository.select(limit, 0, isEnabled = true, year = currentYear).map { all =>
+                selectCache.get(limit, 0, true, currentYear).map { all =>
                   org.kisobran.top.html.index.render(all, Some(1), None, element())
                 }
               }
@@ -107,11 +117,11 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
       } ~
       pathPrefix("arhiva") {
         parameters('year) { _year =>
-          parameters('page?) { pageS =>
+          parameters('page ?) { pageS =>
             complete {
               val page = pageS.map(_.toInt).getOrElse(0)
               topListRepository.count(_year.toInt).flatMap { count =>
-                topListRepository.select(limit, limit * page, isEnabled = true, year = _year.toInt).map { all =>
+                selectCache.get(limit, limit * page, true, _year.toInt).map { all =>
                   val backPage = if (page >= 1) Some(page - 1) else None
                   val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
                   org.kisobran.top.html.arhiva.render(all, forwardPage, backPage, _year.toInt)
@@ -126,7 +136,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
           complete {
             val page = pageS.toInt
             topListRepository.count().flatMap { count =>
-              topListRepository.select(limit, limit * page, isEnabled = true, year = 2018).map { all =>
+              selectCache.get(limit, limit * page, true, 2018).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
                 org.kisobran.top.html.index.render(all, forwardPage, backPage, element())
