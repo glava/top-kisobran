@@ -37,7 +37,13 @@ object Highlight {
     "Klupski hit koji možete da prevušite na jeziku koji ne razumete, pa sad dok đuzgate možete pored oponašanja onomatopeje bitova i matrica da izgovarate i ko zna šta na jeziku Dobre Koreje."
   )
 
-  val items = Seq(rale, goran, milan, maki, mimi)
+   private val brada = Highlight(
+    "@pttrn",
+    yt = "https://www.youtube.com/embed/kazClFw5Aj0",
+    "Novi Lorn, mračan kao tvoja duša."
+  )
+
+  val items = Seq(rale, goran, milan, maki, mimi, brada)
 
   def element() = {
     val random = new Random
