@@ -42,8 +42,14 @@ object Highlight {
     yt = "https://www.youtube.com/embed/kazClFw5Aj0",
     "Novi Lorn, mračan kao tvoja duša."
   )
+   
+   private val fica = Highlight(
+    "dothemath",
+    yt = "https://www.youtube.com/embed/uHKW5RXohSg",
+    "Preporučljivo ostaviti samo jedan prigušen izvor svetlosti upaljen u sobi za slušanje ove trake."
+  )
 
-  val items = Seq(rale, goran, milan, maki, mimi, brada)
+  val items = Seq(rale, goran, milan, maki, mimi, brada, fica)
 
   def element() = {
     val random = new Random
