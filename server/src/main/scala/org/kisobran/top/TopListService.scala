@@ -5,7 +5,7 @@ import java.util.UUID
 import akka.http.scaladsl.server.directives.Credentials
 import akka.http.scaladsl.server.{Directives, Route}
 import org.kisobran.top.db.{Stats, TopListEntries}
-import org.kisobran.top.model.Entry
+import org.kisobran.top.model.{Entry, Highlight}
 import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
@@ -13,6 +13,7 @@ import Configuration._
 import com.github.blemale.scaffeine
 import com.github.blemale.scaffeine.Scaffeine
 import org.kisobran.top.model.Highlight._
+
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -77,8 +78,6 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
                       org.kisobran.top.html.admin.render(all)
                     }
                 }
-
-
               }
             }
           }
@@ -116,6 +115,11 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
             }
           }
         }
+      } ~
+      pathPrefix("preporuke") {
+        complete {
+          org.kisobran.top.html.reco.render(Highlight.items)
+       }
       } ~
       pathPrefix("arhiva") {
         parameters('year) { _year =>

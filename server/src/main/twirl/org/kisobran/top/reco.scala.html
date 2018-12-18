@@ -1,0 +1,53 @@
+@(higlights: Seq[org.kisobran.top.model.Highlight])
+
+
+@main("Liste") {
+
+<div class="row" style="padding-top: 90px;">
+    <div class="col-1">
+    </div>
+    <div class="col-sm" style="text-align: center;">
+        <h2>Neke pesme zaslužuju više od mesta u listi</h2>
+    </div>
+    <div class="col-1">
+    </div>
+</div>
+@for(higlight <- higlights) {
+<div class="row" style="padding-top: 90px;">
+    <div class="col-sm"></div>
+    <div class="col-sm-6">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item"
+                    src="@higlight.yt"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    <div class="col-sm"></div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">
+                @higlight.desc
+            </p>
+            <footer class="blockquote-footer">
+                <cite title="Source Title">
+                    @higlight.author
+                </cite>
+            </footer>
+        </blockquote>
+        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+    </div>
+    <div class="col-sm">
+    </div>
+</div>
+}
+
+}
