@@ -4,7 +4,7 @@ import java.util.UUID
 
 import akka.http.scaladsl.server.directives.Credentials
 import akka.http.scaladsl.server.{Directives, Route}
-import org.kisobran.top.db.{Stats, TopListEntries}
+import org.kisobran.top.db.{Stats, TopListEntries, YtUtil}
 import org.kisobran.top.model.{Entry, Highlight}
 import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 import org.kisobran.top.shared.SharedMessages
@@ -17,7 +17,9 @@ import org.kisobran.top.model.Highlight._
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
-class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)(implicit executionContext: ExecutionContext) extends Directives {
+class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)
+                    (implicit executionContext: ExecutionContext)
+  extends Directives with YtUtil {
 
   val selectCache: scaffeine.AsyncLoadingCache[(Int, Int, Boolean, Int), Seq[TopListEntries]] =
     Scaffeine()
@@ -87,7 +89,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
         post {
           formFieldMap { formContent =>
             complete {
-              topListRepository.update(formContent("id"), formContent.get("yt_link")).flatMap { x =>
+              topListRepository.update(formContent("id"), formContent.get("yt_link").map(toEmbedded)).flatMap { _ =>
                 selectCache.get(limit, 0, true, currentYear).map { all =>
                   org.kisobran.top.html.index.render(all, Some(1), None, element())
                 }
