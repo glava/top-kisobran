@@ -76,7 +76,12 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
                       org.kisobran.top.html.lista.render(lista, false, true)
                     }
                   case None =>
-                    topListRepository.select(100, 0, false, maybeYear.map(_.toInt).getOrElse(currentYear)).map { all =>
+                    topListRepository.select(
+                      limit = 100,
+                      offset = 0,
+                      isEnabled = false,
+                      maybeYear.map(_.toInt).getOrElse(currentYear)
+                    ).map { all =>
                       org.kisobran.top.html.admin.render(all)
                     }
                 }
