@@ -63,7 +63,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
         }
       } ~
       pathPrefix("admin") {
-        authenticateBasic(realm = "secure site", myUserPassAuthenticator) { userName =>
+        authenticateBasic(realm = "secure site", myUserPassAuthenticator) { _ =>
           parameters('id ?, 'year ?) { (maybeId, maybeYear) =>
             get {
               complete {
@@ -105,12 +105,14 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
         }
       } ~
       pathPrefix("import") {
-        parameters('year, 'page, 'yt ?, 'skip ?) { (_year, _page, yt, skip) =>
-          complete {
-            val page = _page.toInt
-            val year = _year.toInt
-            Crawler.extract(year, skip.isDefined, yt.isDefined, page)(topListRepository).map { t =>
-              org.kisobran.top.html.lista.render(t.head, false, false)
+        authenticateBasic(realm = "secure site", myUserPassAuthenticator) { _ =>
+          parameters('year, 'page, 'yt ?, 'skip ?) { (_year, _page, yt, skip) =>
+            complete {
+              val page = _page.toInt
+              val year = _year.toInt
+              Crawler.extract(year, skip.isDefined, yt.isDefined, page)(topListRepository).map { t =>
+                org.kisobran.top.html.lista.render(t.head, false, false)
+              }
             }
           }
         }
