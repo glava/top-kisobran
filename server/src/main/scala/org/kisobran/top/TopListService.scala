@@ -44,7 +44,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
       get {
         complete {
           selectCache.get(20, 0, true, currentYear).map { all =>
-            org.kisobran.top.html.index.render(all, None, None, element())
+            org.kisobran.top.html.index.render(all, Some(20), None, element())
           }
         }
       }
