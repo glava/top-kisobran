@@ -5,12 +5,13 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import org.kisobran.top.db.{DbTestConfiguration, SlickStatsRepository, SlickTopListRepository}
 import org.kisobran.top.model.Entry
+import org.kisobran.top.util.LoggingSupport
 import org.postgresql.Driver
 import slick.jdbc.{DriverDataSource, H2Profile}
 
 import scala.concurrent.ExecutionContext
 
-object WebServer {
+object WebServer extends LoggingSupport {
   def main(args: Array[String]) {
     import Configuration._
 
@@ -48,6 +49,6 @@ object WebServer {
     val service = new TopListService(topListRepository, statsRepository)(ExecutionContext.global)
     Http().bindAndHandle(service.route, interface, port)
 
-    println(s"Server online at http://$interface:$port")
+    log.info(s"Server online at http://$interface:$port")
   }
 }

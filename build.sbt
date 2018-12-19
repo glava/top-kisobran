@@ -22,7 +22,8 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "com.typesafe.slick" %% "slick-hikaricp" % slickV,
     "org.scalatest" %% "scalatest" % "3.0.3" % Test,
     "org.postgresql" % "postgresql" % "42.0.0",
-    "com.newrelic.agent.java" % "newrelic-api" % "4.8.0"
+    "com.newrelic.agent.java" % "newrelic-api" % "4.8.0",
+    "ch.qos.logback" % "logback-classic" % "1.2.3",
   ),
   WebKeys.packagePrefix in Assets := "public/",
   managedClasspath in Runtime += (packageBin in Assets).value,
