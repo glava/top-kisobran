@@ -1,12 +1,13 @@
 package org.kisobran.top.db
 
+import org.kisobran.top.util.LoggingSupport
 import slick.jdbc.JdbcProfile
 import slick.lifted.{AbstractTable, CanBeQueryCondition, Query, TableQuery}
 import slick.relational.RelationalProfile
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait BaseRepo {
+trait BaseRepo extends LoggingSupport {
   implicit val profile: JdbcProfile
   implicit val executionContext: ExecutionContext
 
@@ -33,7 +34,7 @@ trait BaseRepo {
       .map(_ => true)
       .recover {
         case error: Throwable =>
-          println(error.getStackTrace.mkString(","))
+          log.error("error while creating tables", error)
           false
       }
 

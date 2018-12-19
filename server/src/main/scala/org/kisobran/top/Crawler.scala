@@ -4,12 +4,13 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.kisobran.top.model.Entry
 import org.kisobran.top.repository.TopListRepository
+import org.kisobran.top.util.LoggingSupport
 
 import scala.collection.JavaConverters._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
-object Crawler {
+object Crawler extends LoggingSupport {
   implicit val ex = ExecutionContext.global
 
   def splitNum(n: Int, a: Array[String]): Array[String] = {
@@ -71,8 +72,8 @@ object Crawler {
           if (ytLink.isEmpty) None else Some(ytLink)
         )
         val title = post.select(".entry-title").text
-        println(title)
-        println(yt)
+        log.info(title)
+        log.info(yt.toString)
         val entries: Seq[Entry] = extractEntries(post)
         repo.createTopList(None, entries, title, true, year, yt)
       }

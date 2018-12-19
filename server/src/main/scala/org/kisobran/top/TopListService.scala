@@ -13,13 +13,14 @@ import Configuration._
 import com.github.blemale.scaffeine
 import com.github.blemale.scaffeine.Scaffeine
 import org.kisobran.top.model.Highlight._
+import org.kisobran.top.util.LoggingSupport
 
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContext, Future}
 
 class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)
                     (implicit executionContext: ExecutionContext)
-  extends Directives with YtUtil {
+  extends Directives with YtUtil with LoggingSupport {
 
   val selectCache: scaffeine.AsyncLoadingCache[(Int, Int, Boolean, Int), Seq[TopListEntries]] =
     Scaffeine()
@@ -174,8 +175,8 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
                 Entry(formContent(s"inputArtist$index"), formContent(s"inputSong$index"), index, index)
               }
 
-              println(title)
-              println(entries)
+              log.info(title)
+              log.info(entries.toString)
 
               topListRepository.createTopList(
                 formContent.get("userEmail"),
