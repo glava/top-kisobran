@@ -5,31 +5,22 @@
 @main(entry.title) {
 
 
-
-
 @if(message) {
 
-<div class="row" style="padding-top: 90px;">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
+<div class="row">
+    <div class="col-6 mx-auto">
         <cite>
             Bravo! Sačuvali smo tvoju listu. Čim bacimo oko i proverimo da su sve pesme iz
             ove godine, objavljujemo ti listu na glavnoj strani. Do tada, možeš listu deliti sa ovim linkom:
             <a href="/lista/@entry.id"> @entry.title</a> ili možeš uživati u drugim <a href="/">listama</a>
         </cite>
     </div>
-    <div class="col-sm">
-    </div>
 </div>
 
 }
 
-
 <div class="row" style="padding-top: 60px;">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
+    <div class="col-sm-6 mx-auto">
         <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
         <p>1. @entry.artist1 – @entry.song1 <br>
             2. @entry.artist2 – @entry.song2 <br>
@@ -52,19 +43,13 @@
         }
         </p>
     </div>
-    <div class="col-sm">
-    </div>
 </div>
 @if(admin) {
 <form action="/update" method="POST" style="padding-top:20px">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
+    <div class="col-6 mx-auto">
         <input type="text" class="form-control" id="id" name="id" value="@entry.id">
         <input type="text" class="form-control" id="yt_link" name="yt_link" value="@entry.ytLink" placeholder="YouTube link">
         <button type="submit" class="btn btn-primary">Enable</button>
-    </div>
-    <div class="col-sm">
     </div>
 </form>
 

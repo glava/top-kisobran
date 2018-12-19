@@ -4,17 +4,7 @@
 @main("Izaberi svojih top deset") {
 
 <div class="row">
-    <div class="col-3" style="padding-top: 90px;">
-    </div>
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm"></div>
-    <div class="col-sm-6">
+    <div class="col-8 mx-auto">
         <div class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item"
                     src="@higlight.yt"
@@ -24,13 +14,10 @@
             </iframe>
         </div>
     </div>
-    <div class="col-sm"></div>
 </div>
 
 <div class="row">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
+    <div class="col-8 mx-auto">
         <blockquote class="blockquote text-center">
             <p class="mb-0">
                 @higlight.desc
@@ -43,26 +30,18 @@
         </blockquote>
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
     </div>
-    <div class="col-sm">
-    </div>
 </div>
 
 <div class="row" style="padding-top: 60px;">
-    <div class="col-2">
-    </div>
-    <div class="col-8" style="text-align: center;">
+    <div class="col-12" style="text-align: center;">
         <h1>Top deset ove godine</h1>
-    </div>
-    <div class="col-2">
     </div>
 </div>
 
 @for(entry <- entries) {
 
 <div class="row" style="padding-top: 60px;">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
+    <div class="col-6 mx-auto">
         <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
         <p>1. @entry.artist1 – @entry.song1 <br>
             2. @entry.artist2 – @entry.song2 <br>
@@ -73,32 +52,34 @@
             7. @entry.artist7 – @entry.song7 <br>
             8. @entry.artist8 – @entry.song8 <br>
             9. @entry.artist9 – @entry.song9 <br>
-            10. @entry.artist10 – @entry.song10 </p>
-        <p>
-        @for(y <- entry.ytLink) {
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="@y" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                </iframe>
-            </div>
-        }
+            10. @entry.artist10 – @entry.song10
         </p>
     </div>
-    <div class="col-sm">
+</div>
+
+<div class="row">
+@for(y <- entry.ytLink) {
+    <div class="col-6 mx-auto">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="@y" frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+                </iframe>
+        </div>
     </div>
+}
 </div>
 }
 
 <div class="row" style="padding-top: 10px;">
-    <div class="col-sm" style="text-align: right;">
+    <div class="col-1" style="text-align: right;">
         @for(p <- backPage) {
         <a href="/liste?page=@p">← Vrati se nazad </a>
         }
     </div>
-    <div class="col-sm" style="text-align: center;">
+    <div class="col-10" style="text-align: center;">
     </div>
-    <div class="col-sm">
+    <div class="col-1">
         @for(p <- forwardPage) {
         <a href="/liste?page=@p">Još listi →</a>
         }

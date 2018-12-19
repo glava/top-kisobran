@@ -4,30 +4,15 @@
 @main("Arhiva") {
 
 <div class="row">
-    <div class="col-3" style="padding-top: 90px;">
-    </div>
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
-    </div>
-</div>
-
-<div class="row" style="padding-top: 60px;">
-    <div class="col-2">
-    </div>
-    <div class="col-8" style="text-align: center;">
+    <div class="col-8 mx-auto" style="text-align: center;">
         <h1>Top deset @year. godine</h1>
-    </div>
-    <div class="col-2">
     </div>
 </div>
 
 @for(entry <- entries) {
 
 <div class="row" style="padding-top: 60px;">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
+    <div class="col-6 mx-auto">
         <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
         <p>1. @entry.artist1 – @entry.song1 <br>
             2. @entry.artist2 – @entry.song2 <br>
@@ -50,20 +35,18 @@
         }
         </p>
     </div>
-    <div class="col-sm">
-    </div>
 </div>
 }
 
 <div class="row" style="padding-top: 10px;">
-    <div class="col-sm" style="text-align: right;">
+    <div class="col-1" style="text-align: right;">
         @for(p <- backPage) {
         <a href="/arhiva?page=@p&p&year=@year">← Vrati se nazad </a>
         }
     </div>
-    <div class="col-sm" style="text-align: center;">
+    <div class="col-10" style="text-align: center;">
     </div>
-    <div class="col-sm">
+    <div class="col-1">
         @for(p <- forwardPage) {
         <a href="/arhiva?page=@p&year=@year">Još listi →</a>
         }
