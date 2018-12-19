@@ -1,10 +1,11 @@
 @(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean)
 
-
-@main("Lista") {
-
-
 @for(entry <- entries) {
+
+@main(entry.title) {
+
+
+
 
 @if(message) {
 
