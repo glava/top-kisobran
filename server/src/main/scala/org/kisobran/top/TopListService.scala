@@ -31,7 +31,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
       case (limit, offset, isEnabled, year) => topListRepository.select(limit, offset, isEnabled, year)
     }
 
-  val limit = 10
+  val limit = 20
   val currentYear = 2018
 
   def myUserPassAuthenticator(credentials: Credentials): Option[String] =
@@ -44,8 +44,8 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
     pathSingleSlash {
       get {
         complete {
-          selectCache.get(20, 0, true, currentYear).map { all =>
-            org.kisobran.top.html.index.render(all, Some(20), None, element())
+          selectCache.get(limit, 0, true, currentYear).map { all =>
+            org.kisobran.top.html.index.render(all, Some(1), None, element())
           }
         }
       }
