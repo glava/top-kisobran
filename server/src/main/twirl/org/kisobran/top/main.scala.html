@@ -75,12 +75,8 @@
     </div>
   </nav>
 
-  <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          @content
-        </div>
-      </div>
+  <div class="container" style="margin-top: 60px;">
+    @content
   </div>
 
   @scalajs.html.scripts("client", name => s"/assets/$name", name => getClass.getResource(s"/public/$name") != null)
