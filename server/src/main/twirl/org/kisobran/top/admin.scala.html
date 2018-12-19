@@ -1,7 +1,7 @@
 @(entries: Seq[org.kisobran.top.db.TopListEntries])
 
 
-@main("Lista") {
+@main("Admin") {
     @for(entry <- entries) {
 
         <p><a href="/admin?id=@entry.id"> @entry.title</a> </p>
