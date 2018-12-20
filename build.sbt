@@ -24,6 +24,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "org.postgresql" % "postgresql" % "42.0.0",
     "com.newrelic.agent.java" % "newrelic-api" % "4.8.0",
     "ch.qos.logback" % "logback-classic" % "1.2.3",
+    "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
   ),
   WebKeys.packagePrefix in Assets := "public/",
   managedClasspath in Runtime += (packageBin in Assets).value,
