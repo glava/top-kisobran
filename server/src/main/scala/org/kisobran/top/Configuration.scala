@@ -6,6 +6,9 @@ import slick.jdbc.{H2Profile, PostgresProfile}
 import scala.util.Try
 
 object Configuration {
+  val limit = 20
+  val currentYear = 2018
+
   val config = ConfigFactory.load()
   lazy val interface = config.getString("http.interface")
   lazy val port = config.getInt("http.port")
