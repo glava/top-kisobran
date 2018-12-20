@@ -6,10 +6,9 @@ import com.github.blemale.scaffeine
 import com.github.blemale.scaffeine.Scaffeine
 import org.kisobran.top.Configuration._
 import org.kisobran.top.db.{TopListEntries, YtUtil}
-import org.kisobran.top.model.Highlight
 import org.kisobran.top.model.Highlight._
 import org.kisobran.top.repository.{StatsRepository, TopListRepository}
-import org.kisobran.top.routes.{AdminRoutes, ArchiveRoutes, VoteRoutes}
+import org.kisobran.top.routes.{AdminRoutes, ArchiveRoutes, RecommendationRoutes, VoteRoutes}
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
 import org.kisobran.top.util.LoggingSupport
@@ -42,6 +41,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
   lazy val adminRoutes = new AdminRoutes(myUserPassAuthenticator, topListRepository)
   lazy val archiveRoutes = new ArchiveRoutes(topListRepository, selectCache)
   lazy val voteRoutes = new VoteRoutes(topListRepository, statsRepository)
+  lazy val recommendationRoutes = new RecommendationRoutes()
 
   val route: Route = {
     pathSingleSlash {
@@ -72,6 +72,7 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
       archiveRoutes.route ~
       adminRoutes.route ~
       voteRoutes.route ~
+      recommendationRoutes.route ~
       pathPrefix("update") {
         post {
           formFieldMap { formContent =>
@@ -104,11 +105,6 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
             }
           }
         }
-      } ~
-      pathPrefix("preporuke") {
-        complete {
-          org.kisobran.top.html.reco.render(Highlight.items)
-       }
       } ~
       pathPrefix("liste") {
         parameters('page) { pageS =>
