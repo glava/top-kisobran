@@ -7,7 +7,7 @@ import com.github.blemale.scaffeine.Scaffeine
 import org.kisobran.top.Configuration._
 import org.kisobran.top.db.{TopListEntries, YtUtil}
 import org.kisobran.top.model.Highlight._
-import org.kisobran.top.repository.{StatsRepository, TopListRepository}
+import org.kisobran.top.repository.{StatsRepository, TopListRepository, WinnersRepository}
 import org.kisobran.top.routes.{AdminRoutes, ArchiveRoutes, RecommendationRoutes, VoteRoutes}
 import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
@@ -20,7 +20,9 @@ object TopListService {
   type EntryCache = scaffeine.AsyncLoadingCache[(Int, Int, Boolean, Int), Seq[TopListEntries]]
 }
 
-class TopListService(topListRepository: TopListRepository, statsRepository: StatsRepository)
+class TopListService(topListRepository: TopListRepository,
+                     statsRepository: StatsRepository,
+                     winnerRepository: WinnersRepository)
                     (implicit executionContext: ExecutionContext)
   extends Directives with YtUtil with LoggingSupport {
 
@@ -117,6 +119,20 @@ class TopListService(topListRepository: TopListRepository, statsRepository: Stat
                 org.kisobran.top.html.index.render(all, forwardPage, backPage, element())
               }
             }
+          }
+        }
+      } ~
+      pathPrefix("pobednici" / Remaining) { year =>
+          complete {
+            winnerRepository.winners(Some(year.toInt)).map { winners =>
+              org.kisobran.top.html.winners.render(winners)
+            }
+        }
+      } ~
+      pathPrefix("pobednici") {
+        complete {
+          winnerRepository.winners(None).map { winners =>
+            org.kisobran.top.html.winners.render(winners)
           }
         }
       } ~

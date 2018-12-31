@@ -3,6 +3,7 @@ package org.kisobran.top.db
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import org.kisobran.top.TopListService
+import org.kisobran.top.repository.InMemoryWinnersRepository
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FlatSpec, Matchers}
 import slick.jdbc.H2Profile
@@ -27,7 +28,7 @@ class TopListServiceSpec extends FlatSpec
     slickStatsRepository.ensureTablesPresent(true)
   }
 
-  val topListService = new TopListService(slickTopListRepository, slickStatsRepository)(ExecutionContext.global)
+  val topListService = new TopListService(slickTopListRepository, slickStatsRepository, InMemoryWinnersRepository)(ExecutionContext.global)
 
   val routes = topListService.route
 

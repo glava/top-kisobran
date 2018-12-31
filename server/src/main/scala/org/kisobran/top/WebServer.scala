@@ -5,6 +5,7 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import org.kisobran.top.db.{DbTestConfiguration, SlickStatsRepository, SlickTopListRepository}
 import org.kisobran.top.model.Entry
+import org.kisobran.top.repository.InMemoryWinnersRepository
 import org.kisobran.top.util.LoggingSupport
 import org.postgresql.Driver
 import slick.jdbc.{DriverDataSource, H2Profile}
@@ -24,6 +25,7 @@ object WebServer extends LoggingSupport {
 
     val topListRepository = new SlickTopListRepository(source)(dbProfile, ExecutionContext.global)
     val statsRepository = new SlickStatsRepository(source)(dbProfile, ExecutionContext.global)
+    val winnersRepository = InMemoryWinnersRepository
 
     implicit val ex = ExecutionContext.global
     // todo: move to liqubase
@@ -53,7 +55,7 @@ object WebServer extends LoggingSupport {
     }
 
 
-    val service = new TopListService(topListRepository, statsRepository)(ExecutionContext.global)
+    val service = new TopListService(topListRepository, statsRepository, winnersRepository)(ExecutionContext.global)
     Http().bindAndHandle(service.route, interface, port)
 
     log.info(s"Server online at http://$interface:$port")
