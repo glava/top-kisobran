@@ -71,7 +71,7 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     2013 ->  Winner(
       Entries2013,
       "Drugu godinu za redom Arctic Monkeys na prvom mestu, dokle više Get Lucky, opasni Arcade Fire i The National, i prelepi domaći debi Ti",
-      2012,
+      2013,
       Some("https://youtu.be/F586JktJyEg").map{ toEmbedded }
     )
   )
