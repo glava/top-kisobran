@@ -42,6 +42,19 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     Entry("Die Antwoord", "I Fink U Freaky", 10, 10)
   )
 
+  val Entries2013 = Seq(
+    Entry("Arctic Monkeys", "Do I Wanna Know", 1, 1),
+    Entry("Arcade Fire", "Reflektor", 2, 2),
+    Entry("!!!", "One Girl / One Boy", 3, 4),
+    Entry("Arcade Fire", "Afterlife ", 4, 5),
+    Entry("Daft Punk", "Get Lucky", 5, 7),
+    Entry("James Blake", "Retrograde", 6, 6),
+    Entry("Arctic Monkeys", "Why’d You Only Call Me When You’re High?", 7, 7),
+    Entry("The National", "Sea of love", 8, 8),
+    Entry("Rudimental", "Waiting All Night", 9, 9),
+    Entry("Ti", "Da ti želim dobra jutra", 10, 10)
+  )
+
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
@@ -54,6 +67,12 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
       "R U Mine? je hitčina od prvog slušanja, Frank Ocean odličan debi i The XX se vratili posle previše godina pauze",
       2012,
       Some("https://youtu.be/VQH8ZTgna3Q").map{ toEmbedded }
+    ),
+    2013 ->  Winner(
+      Entries2013,
+      "Drugu godinu za redom Arctic Monkeys na prvom mestu, dokle više Get Lucky, opasni Arcade Fire i The National, i prelepi domaći debi Ti",
+      2012,
+      Some("https://youtu.be/F586JktJyEg").map{ toEmbedded }
     )
   )
 
