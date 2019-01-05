@@ -84,7 +84,7 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
-      "M83 je napravio himnu Kišobrana, skakali smo uz Foster The People i voleli smo I Follow Rivers dok nam se nije smučila",
+      "Pa M83 je napravio himnu Kišobrana, djuskanje uz Foster The People i ljubav za I Follow Rivers dok nam se nije smučila",
       2011,
       Some("https://youtu.be/dX3k_QDnzHE").map{ toEmbedded }
     ),
@@ -96,7 +96,7 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     ),
     2013 ->  Winner(
       Entries2013,
-      "Drugu godinu za redom Arctic Monkeys na prvom mestu, dokle više Get Lucky, opasni Arcade Fire i The National, i prelepi domaći debi Ti",
+      "Drugu godinu za redom Arctic Monkeys na prvom mestu, dokle više Get Lucky, opasni Arcade Fire i The National i prelepi domaći debi Ti",
       2013,
       Some("https://youtu.be/F586JktJyEg").map{ toEmbedded }
     ),
@@ -110,7 +110,7 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     2015 ->
       Winner(
         Entries2015,
-        "Na kišobran žurkama je King izabran za pesmu godine, Let it happen hoćemo live a Florence + The Machine ima album koji će se pamtiti",
+        "Na Kišobran žurkama je King izabran za pesmu godine, Let it happen hoćemo live a Florence + The Machine ima album koji će se pamtiti",
         2015,
         Some("https://youtu.be/g_uoH6hJilc").map{ toEmbedded }
       )
