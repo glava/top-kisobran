@@ -55,6 +55,32 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     Entry("Ti", "Da ti želim dobra jutra", 10, 10)
   )
 
+  val Entries2014 = Seq(
+    Entry("Tv On The Radio", "Happy Idiot", 10, 10),
+    Entry("Caribou", "Can’t Do Without You", 9, 9),
+    Entry("The Black Keys", "Fever", 8, 8),
+    Entry("Chet Faker", "Gold", 7, 7),
+    Entry("Fka Twigs", "Two Weeks", 6, 6),
+    Entry("Klaxons", "There Is No Other Time", 5, 5),
+    Entry("The War On Drugs", "Red Eyes", 4, 4),
+    Entry("Vance Joy", "Riptide", 3, 3),
+    Entry("Alt-j", "Every Other Freckle", 2, 2),
+    Entry("Future Islands", "Seasons (Waiting on you)", 1, 1)
+  ).reverse
+
+  val Entries2015 = Seq(
+    Entry("Years & Years", "King", 1, 1),
+    Entry("Tame Impala", "Let It Happen", 2, 2),
+    Entry("Coldplay", "Adventure Of A Lifetime", 3, 3),
+    Entry("Rattata", "Cream On Chrome", 4, 4),
+    Entry("Tame Impala", "The Less I Know The Better", 5, 5),
+    Entry("The Weeknd", "Can’t Ceel My Face", 6, 6),
+    Entry("Florence + The Machine", "What Kind Of Man", 7, 7),
+    Entry("The Chemical Brothers", "Go", 8, 8),
+    Entry("Foals", "Mountain At My Gates", 9, 9),
+    Entry("Florence + The Machine", "Queen of Peace", 10, 10)
+  )
+
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
@@ -73,13 +99,27 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
       "Drugu godinu za redom Arctic Monkeys na prvom mestu, dokle više Get Lucky, opasni Arcade Fire i The National, i prelepi domaći debi Ti",
       2013,
       Some("https://youtu.be/F586JktJyEg").map{ toEmbedded }
-    )
+    ),
+    2014 ->
+      Winner(
+        Entries2014,
+        "Future Islands je bomba, Klaxons je žurka, FKA Twigs je devojka koju gledaš krišom a Caribou je ljubav.",
+        2014,
+        Some("https://youtu.be/-5Ae-LhMIG0").map{ toEmbedded }
+      ),
+    2015 ->
+      Winner(
+        Entries2015,
+        "Na kišobran žurkama je King izabran za pesmu godine, Let it happen hoćemo live a Florence + The Machine ima album koji će se pamtiti",
+        2015,
+        Some("https://youtu.be/g_uoH6hJilc").map{ toEmbedded }
+      )
   )
 
   override def winners(year: Option[Int]): Future[Seq[Winner]] = {
     year match {
       case Some(y) => Future.successful(Try(Seq(Winners(y))).getOrElse(Seq.empty))
-      case None => Future.successful(Winners.values.toSeq)
+      case None => Future.successful(Winners.values.toSeq.sortBy(_.year))
     }
   }
 
