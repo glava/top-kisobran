@@ -11,7 +11,9 @@ trait StatsRepository {
 
   def createStats(id: String, entries: Seq[Entry]): Future[Seq[Stats]]
 
-  def update(id: String, ytLink: Option[String]): Future[Int]
+  def enable(id: String): Future[Int]
 
   def select(limit: Int, offset: Int): Future[Seq[Stats]]
+
+  def find(id: String): Future[Seq[Stats]]
 }

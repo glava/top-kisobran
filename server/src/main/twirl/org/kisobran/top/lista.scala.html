@@ -1,4 +1,4 @@
-@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean)
+@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean, stats: Seq[org.kisobran.top.db.Stats] = Seq.empty)
 
 @for(entry <- entries) {
 
@@ -45,6 +45,18 @@
     </div>
 </div>
 @if(admin) {
+
+<div class="row" style="padding-top: 60px;">
+    <div class="col-sm-6 mx-auto">
+        <h2>Stats table</h2>
+        <p>
+        @for(stat <- stats) {
+            @stat.position – @stat.artist - @stat.song - @stat.points - @stat.enabled <br>
+        }
+        </p>
+    </div>
+</div>
+
 <form action="/update" method="POST" style="padding-top:20px">
     <div class="col-6 mx-auto">
         <input type="text" class="form-control" id="id" name="id" value="@entry.id">

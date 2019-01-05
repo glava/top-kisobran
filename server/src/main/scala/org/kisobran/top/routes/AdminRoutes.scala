@@ -3,14 +3,15 @@ package org.kisobran.top.routes
 import akka.http.scaladsl.server.{Directives, Route}
 import akka.http.scaladsl.server.directives.Credentials
 import org.kisobran.top.Configuration
-import org.kisobran.top.repository.TopListRepository
+import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 
 import scala.concurrent.{ExecutionContext, Future}
 import org.kisobran.top.twirl.Implicits._
 import play.twirl.api.HtmlFormat
 
 class AdminRoutes(authenticator: Credentials => Option[String],
-                  topListRepository: TopListRepository)(implicit executionContext: ExecutionContext) extends Directives {
+                  topListRepository: TopListRepository,
+                  statsRepository: StatsRepository)(implicit executionContext: ExecutionContext) extends Directives {
   val route: Route = pathPrefix("admin") {
     authenticateBasic(realm = "secure site", authenticator) { _ =>
       parameters('id ?, 'year ?) { (maybeId, maybeYear) =>
@@ -22,8 +23,10 @@ class AdminRoutes(authenticator: Credentials => Option[String],
   def adminPage(maybeId: Option[String], maybeYear: Option[String]): Future[HtmlFormat.Appendable] = {
     maybeId match {
       case Some(id) =>
-        topListRepository.findTopList(id).map { lista =>
-          org.kisobran.top.html.lista.render(lista, false, true)
+        topListRepository.findTopList(id).flatMap { lista =>
+          statsRepository.find(id).map { stats =>
+            org.kisobran.top.html.lista.render(lista, false, true, stats)
+          }
         }
       case None =>
         topListRepository.select(

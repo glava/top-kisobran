@@ -68,7 +68,7 @@ class SlickStatsRepository(dataSource: DataSource)(implicit val profile: JdbcPro
     }
   }
 
-  override def update(id: String, ytLink: Option[String]): Future[Int] = {
+  override def enable(id: String): Future[Int] = {
     val en = for {list <- statsTable.filter(_.id === id)} yield (list.enabled, list.updatedAt)
     db.run(en.update(true, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)))
   }
@@ -79,6 +79,10 @@ class SlickStatsRepository(dataSource: DataSource)(implicit val profile: JdbcPro
     )
 
     db.run(statsTable ++= bulkStats).map(_ => bulkStats)
+  }
+
+  override def find(id: String): Future[Seq[Stats]] = {
+    db.run(statsTable.filter(_.id === id).take(10).result)
   }
 }
 

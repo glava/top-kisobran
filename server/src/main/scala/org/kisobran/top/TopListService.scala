@@ -40,7 +40,7 @@ class TopListService(topListRepository: TopListRepository,
     case _ => None
   }
 
-  lazy val adminRoutes = new AdminRoutes(myUserPassAuthenticator, topListRepository)
+  lazy val adminRoutes = new AdminRoutes(myUserPassAuthenticator, topListRepository, statsRepository)
   lazy val archiveRoutes = new ArchiveRoutes(topListRepository, selectCache)
   lazy val voteRoutes = new VoteRoutes(topListRepository, statsRepository)
   lazy val recommendationRoutes = new RecommendationRoutes()
@@ -66,7 +66,7 @@ class TopListService(topListRepository: TopListRepository,
         get {
           complete {
             topListRepository.findTopList(id).map { lista =>
-              org.kisobran.top.html.lista.render(lista, false, false)
+              org.kisobran.top.html.lista.render(lista, false, false, Seq.empty)
             }
           }
         }
@@ -79,11 +79,11 @@ class TopListService(topListRepository: TopListRepository,
         post {
           formFieldMap { formContent =>
             complete {
-              topListRepository.update(formContent("id"), formContent.get("yt_link").map(toEmbedded)).flatMap { _ =>
-                selectCache.get(limit, 0, true, currentYear).map { all =>
-                  org.kisobran.top.html.index.render(all, Some(1), None, element())
-                }
-              }
+              for {
+                _ <- topListRepository.update(formContent("id"), formContent.get("yt_link").map(toEmbedded))
+                _ <- statsRepository.enable(formContent("id"))
+                all <- selectCache.get(limit, 0, true, currentYear)
+              } yield org.kisobran.top.html.index.render(all, Some(1), None, element())
             }
           }
         }
@@ -102,7 +102,7 @@ class TopListService(topListRepository: TopListRepository,
               val page = _page.toInt
               val year = _year.toInt
               Crawler.extract(year, skip.isDefined, yt.isDefined, page)(topListRepository).map { t =>
-                org.kisobran.top.html.lista.render(t.head, false, false)
+                org.kisobran.top.html.lista.render(t.head, false, false, Seq.empty)
               }
             }
           }
