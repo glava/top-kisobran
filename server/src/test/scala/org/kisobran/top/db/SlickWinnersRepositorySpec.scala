@@ -17,7 +17,7 @@ class SlickWinnersRepositorySpec extends FlatSpec
   val slickWinnerRepository = new SlickWinnersRepository(DbTestConfiguration.testMySQL)(H2Profile, ExecutionContext.global)
 
   override def beforeEach(): Unit = {
-    slickWinnerRepository.ensureTablesPresent(true)
+    slickWinnerRepository.ensureTablesPresent(true).futureValue
   }
 
   "SlickWinner repository" should "play nice" in {

@@ -8,7 +8,7 @@ import slick.jdbc.H2Profile
 
 import scala.concurrent.ExecutionContext
 
-class SlickTopListRepositorySpecextends extends FlatSpec
+class SlickTopListRepositorySpec extends FlatSpec
   with Matchers
   with BeforeAndAfterEach
   with BeforeAndAfterAll
@@ -18,7 +18,7 @@ class SlickTopListRepositorySpecextends extends FlatSpec
   val slickTopListRepository = new SlickTopListRepository(DbTestConfiguration.testMySQL)(H2Profile, ExecutionContext.global)
 
   override def beforeEach(): Unit = {
-    slickTopListRepository.ensureTablesPresent(true)
+    slickTopListRepository.ensureTablesPresent(true).futureValue
   }
 
   "slickTopListRepository" should "play nice" in {
