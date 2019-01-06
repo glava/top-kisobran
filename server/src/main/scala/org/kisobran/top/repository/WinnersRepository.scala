@@ -81,6 +81,32 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     Entry("Florence + The Machine", "Queen of Peace", 10, 10)
   )
 
+  val Entries2016 = Seq(
+    Entry("The XX", "On Hold", 1, 1),
+    Entry("Glass Animals", "Life Itself", 2, 2),
+    Entry("Childish Gambino", "Redbone", 3, 3),
+    Entry("White lies", "Take It Out On Me", 4, 4),
+    Entry("The Weeknd ft Daft Punk", "Starboy", 5, 5),
+    Entry("Rihanna", "Kiss It Better", 6, 6),
+    Entry("Flume", "Never Be Like You", 7, 7),
+    Entry("Beyonce", "Formation", 8, 8),
+    Entry("The Last Shadow Puppets", "Miracle Aligner", 9, 9),
+    Entry("Banks", "Gemini Feed", 10, 10)
+  )
+
+  val Entries2017 = Seq(
+    Entry("Arcade Fire", "Everything Now", 1, 1),
+    Entry("Portugal The Man", "Feel It Still", 2, 2),
+    Entry("Banks", "Underdog", 3, 3),
+    Entry("Bonobo", "No Reason", 4, 4),
+    Entry("!!!", "The One 2", 5, 5),
+    Entry("The National", "Guilty Party", 6, 6),
+    Entry("Arcade Fire", "Put Your Money On Me", 7, 7),
+    Entry("Tove Lo", "Disco Tits", 8, 8),
+    Entry("Lorde", "Green Light", 9, 9),
+    Entry("Kasabian", "You're In Love With A Psycho", 10, 10)
+  )
+
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
@@ -113,6 +139,20 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
         "Na Kišobran žurkama je King izabran za pesmu godine, Let it happen hoćemo live a Florence + The Machine ima album koji će se pamtiti",
         2015,
         Some("https://youtu.be/g_uoH6hJilc").map{ toEmbedded }
+      ),
+    2016 ->
+      Winner(
+        Entries2016,
+        "Koliko mi volimo The XX, Glass Animals je letnja indie albumčina, Redbone na repeat a Beyonce na tron",
+        2016,
+        Some("https://youtu.be/blJKoXWlqJk").map{ toEmbedded }
+      ),
+    2017 ->
+      Winner(
+        Entries2017,
+        "Arcade Fire je veliki i kada je slab, Portugal The Man smo puštali na vrhuncu žurke, The National opet pun pogodak, !!! razvalili Dom Omladine",
+        2017,
+        Some("https://youtu.be/zC30BYR3CUk").map{ toEmbedded }
       )
   )
 
