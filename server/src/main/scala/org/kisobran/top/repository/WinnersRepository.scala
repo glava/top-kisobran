@@ -107,6 +107,20 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
     Entry("Kasabian", "You're In Love With A Psycho", 10, 10)
   )
 
+  val Entries2018 = Seq(
+      Entry("Vojko V", "Ne Može", 1, 1),
+      Entry("Childish Gambino", "This Is America", 2, 2),
+      Entry("Lykke Li", "Deep End", 3, 3),
+      Entry("Bicep", "Opal - Four Tet Remix", 4, 4),
+      Entry("Arctic Monkeys", "Four Out Of Five", 5, 5),
+      Entry("Mark Ronson", "Nothing Breaks Like a Heart (feat. Miley Cyrus)", 6, 6),
+      Entry("Coby", "Biseri iz Blata", 7, 7),
+      Entry("Billie Eilish", "When The Party's Over", 8, 8),
+      Entry("Drake", "Nice For What", 9, 9),
+      Entry("Lana Del Rey", "Mariners Apartment Complex", 10, 10)
+    )
+
+
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
@@ -153,13 +167,20 @@ object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
         "Arcade Fire je veliki i kada je slab, Portugal The Man smo puštali na vrhuncu žurke, The National opet pun pogodak, !!! razvalili Dom Omladine",
         2017,
         Some("https://youtu.be/zC30BYR3CUk").map{ toEmbedded }
+      ),
+    2018 ->
+      Winner(
+        Entries2018,
+        "Vojko V je glas Balkana, Arctic Monkeys su peto mesto od deset a Coby ima najgledaniji spot od većine pesama u listi",
+        2018,
+        Some("https://youtu.be/fOEp1GiVsWs").map{ toEmbedded }
       )
   )
 
   override def winners(year: Option[Int]): Future[Seq[Winner]] = {
     year match {
       case Some(y) => Future.successful(Try(Seq(Winners(y))).getOrElse(Seq.empty))
-      case None => Future.successful(Winners.values.toSeq.sortBy(_.year))
+      case None => Future.successful(Winners.values.toSeq.sortBy(_.year).reverse)
     }
   }
 
