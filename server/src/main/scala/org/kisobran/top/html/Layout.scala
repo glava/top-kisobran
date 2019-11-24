@@ -25,7 +25,7 @@ object Layout {
 
         <!-- For Google -->
         <meta name="description" content="Izaberi svojih top 10 pesama"/>
-        <meta name="keywords" content="kišobran"/>
+        <meta name="keywords" content="kišobran 2019"/>
 
         <meta name="author" content="kišobran"/>
         <meta name="copyright" content="kišobran"/>
