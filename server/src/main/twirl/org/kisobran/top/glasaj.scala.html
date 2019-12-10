@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group col-md-6">
 
-                    <input type="text"  class="form-control" id="listName" name="listName" oninvalid="alert('Hej, Ime liste je obavezno polje!')" required="required" placeholder="Nazovi listu">
+                    <input type="text" class="form-control" id="listName" name="listName" oninvalid="alert('Hej, Ime liste je obavezno polje!')" required="required" placeholder="Nazovi listu">
                 </div>
                 <div class="form-group col-md-3">
                 </div>
@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
 
-                    <input type="text"  class="form-control typeahead" id="inputArtist2" oninvalid="alert('Hej, Izvodjač je obavezno polje!')" required="required" name="inputArtist2"
+                    <input type="text" class="form-control" id="inputArtist2" oninvalid="alert('Hej, Izvodjač je obavezno polje!')" required="required" name="inputArtist2"
                            placeholder="2.  Izvodjač">
                 </div>
                 <div class="form-group col-md-6">
@@ -164,109 +164,6 @@
     </div>
 </div>
 }
-<style>
-    /* scaffolding */
-/* ----------- */
-
-html {
-  overflow-y: scroll;
-  *overflow-x: hidden;
-}
-
-.container {
-  max-width: 750px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.tt-menu,
-.gist {
-  text-align: left;
-}
-
-/* base styles */
-/* ----------- */
-
-
-<!--.tt-query,-->
-<!--.tt-hint {-->
-<!--  width: 396px;-->
-<!--  height: 30px;-->
-<!--  padding: 8px 12px;-->
-<!--  font-size: 24px;-->
-<!--  line-height: 30px;-->
-<!--  border: 2px solid #ccc;-->
-<!--  -webkit-border-radius: 8px;-->
-<!--     -moz-border-radius: 8px;-->
-<!--          border-radius: 8px;-->
-<!--  outline: none;-->
-<!--}-->
-
-.typeahead {
-  background-color: #fff;
-}
-
-.typeahead:focus {
-  border: 2px solid #0097cf;
-}
-
-.tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.tt-hint {
-  color: #999
-}
-
-.twitter-typeahead {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.tt-menu {
-  width: 100%;
-  margin: 12px 0;
-  padding: 8px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
-}
-
-.tt-suggestion {
-  padding: 3px 20px;
-  font-size: 18px;
-  line-height: 24px;
-}
-
-.tt-suggestion:hover {
-  cursor: pointer;
-  color: #fff;
-  background-color: #0097cf;
-}
-
-.tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf;
-
-}
-
-.tt-suggestion p {
-  margin: 0;
-}
-
-
-
-
-</style>
 <script>
 $('html').bind('keypress', function(e) {
     if(e.keyCode == 13) {
@@ -292,47 +189,6 @@ $('body').on('keydown', 'input, select, textarea', function(e) {
     }
 });
 
-var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
 
-    // an array that will be populated with substring matches
-    matches = [];
-
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
-
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        matches.push(str);
-      }
-    });
-
-    cb(matches);
-  };
-};
-
-var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-];
-
-$('#inputArtist2').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'states',
-  source: substringMatcher(states)
-});
 
 </script>
