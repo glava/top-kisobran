@@ -29,7 +29,7 @@ class TopListService(topListRepository: TopListRepository,
   val selectCache: TopListService.EntryCache =
     Scaffeine()
       .recordStats()
-      .expireAfterWrite(40.minutes)
+      .expireAfterWrite(1.second)
       .maximumSize(100)
       .buildAsyncFuture[(Int, Int, Boolean, Int), Seq[TopListEntries]] {
       case (limit, offset, isEnabled, year) => topListRepository.select(limit, offset, isEnabled, year)
