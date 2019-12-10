@@ -80,8 +80,12 @@
     <div class="col-10" style="text-align: center;">
     </div>
     <div class="col-1">
+        @if(forwardPage.isEmpty) {
+        <a href="/arhiva?year=2018">Liste iz 2018. →</a>
+        } else {
         @for(p <- forwardPage) {
         <a href="/liste?page=@p">Još listi →</a>
+        }
         }
     </div>
 </div>

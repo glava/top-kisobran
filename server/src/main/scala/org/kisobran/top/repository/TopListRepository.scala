@@ -18,7 +18,7 @@ trait TopListRepository {
 
   def select(limit: Int, offset: Int, isEnabled: Boolean, year:Int): Future[Seq[TopListEntries]]
 
-  def count(year: Int = 2018): Future[Int]
+  def count(year: Int): Future[Int]
 
   def update(id: String, ytLink: Option[String]): Future[Int]
 }

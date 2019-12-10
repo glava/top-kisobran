@@ -112,8 +112,8 @@ class TopListService(topListRepository: TopListRepository,
         parameters('page) { pageS =>
           complete {
             val page = pageS.toInt
-            topListRepository.count().flatMap { count =>
-              selectCache.get(limit, limit * page, true, 2018).map { all =>
+            topListRepository.count(Configuration.currentYear).flatMap { count =>
+              selectCache.get(limit, limit * page, true, Configuration.currentYear).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
                 org.kisobran.top.html.index.render(all, forwardPage, backPage, element())

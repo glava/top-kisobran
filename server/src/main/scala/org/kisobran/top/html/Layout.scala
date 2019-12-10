@@ -70,19 +70,17 @@ object Layout {
                 <a class="nav-link" href="/pravila">Pravila</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="false">Arhiva
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="false">Prethodne Godine
                   <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="download">
+                  <a class="dropdown-item" href="/pobednici">Pobednici</a>
                   <a class="dropdown-item" href="/arhiva?year=2017">2017</a>
                   <a class="dropdown-item" href="/arhiva?year=2016">2016</a>
                   <a class="dropdown-item" href="/arhiva?year=2015">2015</a>
                   <a class="dropdown-item" href="/arhiva?year=2014">2014</a>
                   <a class="dropdown-item" href="/arhiva?year=2013">2013</a>
                 </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/preporuke">Preporuke</a>
               </li>
             </ul>
           </div>

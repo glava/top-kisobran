@@ -133,7 +133,7 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
       .result
     )
 
-  override def count(year: Int = 2018) =
+  override def count(year: Int) =
     db.run(topList.filter(_.year === year).size.result)
 
   override def tables: Seq[SomeTable] = Seq(topList.asInstanceOf[SomeTable])
