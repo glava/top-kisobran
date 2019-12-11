@@ -5,7 +5,7 @@ import akka.http.scaladsl.server.{Directives, Route}
 import com.github.blemale.scaffeine
 import com.github.blemale.scaffeine.Scaffeine
 import org.kisobran.top.Configuration._
-import org.kisobran.top.db.{TopListEntries, YtUtil}
+import org.kisobran.top.db.{TopListEntries, EmbeddedUtil}
 import org.kisobran.top.model.Highlight._
 import org.kisobran.top.repository.{StatsRepository, TopListRepository, WinnersRepository}
 import org.kisobran.top.routes.{AdminRoutes, ArchiveRoutes, RecommendationRoutes, VoteRoutes}
@@ -24,8 +24,8 @@ class TopListService(topListRepository: TopListRepository,
                      statsRepository: StatsRepository,
                      winnerRepository: WinnersRepository)
                     (implicit executionContext: ExecutionContext)
-  extends Directives with YtUtil with LoggingSupport {
-
+  extends Directives with LoggingSupport {
+  import EmbeddedUtil._
   val selectCache: TopListService.EntryCache =
     Scaffeine()
       .recordStats()

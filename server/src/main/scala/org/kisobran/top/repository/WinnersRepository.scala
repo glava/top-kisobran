@@ -1,6 +1,6 @@
 package org.kisobran.top.repository
 
-import org.kisobran.top.db.{Winner, YtUtil}
+import org.kisobran.top.db.{Winner, EmbeddedUtil}
 import org.kisobran.top.model.Entry
 
 import scala.concurrent.Future
@@ -14,7 +14,8 @@ trait WinnersRepository {
 
 }
 
-object InMemoryWinnersRepository extends WinnersRepository with YtUtil {
+object InMemoryWinnersRepository extends WinnersRepository {
+  import EmbeddedUtil._
 
   val Entries2011 = Seq(
     Entry("M83", "Midnight City", 1, 1),

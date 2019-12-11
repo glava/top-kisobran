@@ -3,7 +3,7 @@ package org.kisobran.top
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import org.kisobran.top.db.{DbTestConfiguration, SlickStatsRepository, SlickTopListRepository}
+import org.kisobran.top.db.{DbTestConfiguration, EmbeddedUtil, SlickStatsRepository, SlickTopListRepository}
 import org.kisobran.top.model.Entry
 import org.kisobran.top.repository.InMemoryWinnersRepository
 import org.kisobran.top.util.LoggingSupport
@@ -30,8 +30,9 @@ object WebServer extends LoggingSupport {
     implicit val ex = ExecutionContext.global
     // todo: move to liqubase
     if (dbProfile == H2Profile) {
+
       val videos = Seq(
-        "https://www.youtube.com/embed/Yr-cnSQDhVQ", // goran series
+        EmbeddedUtil.toEmbedded("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323905173"), // goran series
         "https://www.youtube.com/embed/SlbVgjFvE3I", // Peggy Gou
         "https://www.youtube.com/embed/vIh7IsgauRQ" // worst darts
       )
