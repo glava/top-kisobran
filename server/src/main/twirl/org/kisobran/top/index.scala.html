@@ -6,12 +6,22 @@
 <div class="row">
     <div class="col-12 col-lg-8 mx-auto">
         <div class="embed-responsive embed-responsive-16by9">
+            @if(higlight.yt.contains("soundcloud")){
+            <iframe width="100%"
+                    height="300"
+                    scrolling="no"
+                    frameborder="no"
+                    allow="autoplay"
+                    src="@higlight.yt">
+            </iframe>
+            } else {
             <iframe class="embed-responsive-item"
                     src="@higlight.yt"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
             </iframe>
+            }
         </div>
     </div>
 </div>
@@ -61,10 +71,21 @@
 @for(y <- entry.ytLink) {
     <div class="col-10 col-lg-6 mx-auto">
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="@y" frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
+
+            @if(y.contains("soundcloud")) {
+                <iframe width="100%" height="300"
+                        scrolling="no"
+                        frameborder="no"
+                        allow="autoplay"
+                        src="@y">
+
                 </iframe>
+            } else {
+                <iframe class="embed-responsive-item" src="@y" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+            }
         </div>
     </div>
 }
