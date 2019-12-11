@@ -1,5 +1,7 @@
 package org.kisobran.top.model
 
+import org.kisobran.top.db.EmbeddedUtil
+
 import scala.util.Random
 
 case class Highlight(author: String, yt: String, desc: String)
@@ -14,9 +16,15 @@ object Highlight {
   )
 
   private val goran = Highlight(
-    "Glava iz Švabije",
-    yt = "https://www.youtube.com/embed/sh5exYGe_Qg",
-    "Kada god slušam Cat Power uveren sam da će sve biti ok. Čak i kada je mračno kao u Black pesmi"
+    "Vincent Van Gogo",
+    yt = EmbeddedUtil.toEmbedded("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/616622964"),
+    "SAULT jer se i dalje ložim ko tinejdžer na mistične i drske bendove"
+  )
+
+  private val vidak = Highlight(
+    "Vidak",
+    yt = EmbeddedUtil.toEmbedded("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/590543667"),
+    "Ja sam Vidak ide mi se u džihad."
   )
 
   private val milan = Highlight(
@@ -33,8 +41,8 @@ object Highlight {
   
   private val mimi = Highlight(
     "Mimi, padavičar iz beograda",
-    yt = "https://www.youtube.com/embed/SlbVgjFvE3I",
-    "Klupski hit koji možete da prevušite na jeziku koji ne razumete, pa sad dok đuzgate možete pored oponašanja onomatopeje bitova i matrica da izgovarate i ko zna šta na jeziku Dobre Koreje."
+    yt = "https://www.youtube.com/embed/56SJhX83duQ",
+    "U 2019. smo našem već postojećem znanju turskih reči, tipa avlija, čarapa, kafana, dodali i metla od deteline."
   )
 
    private val brada = Highlight(
@@ -45,11 +53,11 @@ object Highlight {
    
    private val fica = Highlight(
     "dothemath",
-    yt = "https://www.youtube.com/embed/uHKW5RXohSg",
-    "Preporučljivo ostaviti samo jedan prigušen izvor svetlosti upaljen u sobi za slušanje ove trake."
+    yt = "https://www.youtube.com/embed/gk7W-QowBss",
+    "2019. je pokazala da je Jme bolji brat."
   )
 
-  val items = Seq(rale, goran, milan, maki, mimi, brada, fica)
+  val items = Seq(fica, mimi, goran, vidak)
 
   def element() = {
     val random = new Random
