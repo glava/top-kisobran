@@ -39,7 +39,7 @@ object Highlight {
     "Ovo je dobra stvar koju možete poslušati ako rešite da odradite kvalitetnu solo šetnjicu sa sluškama u ušima!"
   )
 
-  private val Kimi = Highlight(
+  private val kimi = Highlight(
     "Kimi, idejni tvorac top deset akcije",
     yt = "https://youtu.be/mMDeJfJttUU",
     "Samo elektronika i sajentologija"
