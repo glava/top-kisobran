@@ -10,9 +10,9 @@ case class Highlight(author: String, yt: String, desc: String)
 object Highlight {
 
   private val rale = Highlight(
-    "Rale iz Kišobran DJ ekipe",
-    yt = "https://www.youtube.com/embed/IJrKlSkxRHA",
-    "Feelgood himna koju pakujem u kofer pred put. Pesma sa kojom sam dolazio i odlazio. Sve je cool."
+    "Rale Kišobran",
+    yt = "https://youtu.be/5FQtSn_vak0",
+    "You were waiting outside for me in the sun."
   )
 
   private val goran = Highlight(
@@ -38,6 +38,12 @@ object Highlight {
     yt = "https://www.youtube.com/embed/kQtf3oh-2Zg",
     "Ovo je dobra stvar koju možete poslušati ako rešite da odradite kvalitetnu solo šetnjicu sa sluškama u ušima!"
   )
+
+  private val Kimi = Highlight(
+    "Kimi, idejni tvorac top deset akcije",
+    yt = "https://youtu.be/mMDeJfJttUU",
+    "Samo elektronika i sajentologija"
+  )
   
   private val mimi = Highlight(
     "Mimi, padavičar iz beograda",
@@ -57,7 +63,7 @@ object Highlight {
     "2019. je pokazala da je Jme bolji brat."
   )
 
-  val items = Seq(fica, mimi, goran, vidak)
+  val items = Seq(fica, mimi, goran, vidak, kimi, rale)
 
   def element() = {
     val random = new Random
