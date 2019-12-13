@@ -11,7 +11,7 @@ object Highlight {
 
   private val rale = Highlight(
     "Rale Kišobran",
-    yt = "https://youtu.be/5FQtSn_vak0",
+    yt = EmbeddedUtil.toEmbedded("https://youtu.be/5FQtSn_vak0"),
     "You were waiting outside for me in the sun."
   )
 
@@ -41,7 +41,7 @@ object Highlight {
 
   private val kimi = Highlight(
     "Kimi, idejni tvorac top deset akcije",
-    yt = "https://youtu.be/mMDeJfJttUU",
+    yt = EmbeddedUtil.toEmbedded("https://youtu.be/mMDeJfJttUU"),
     "Samo elektronika i sajentologija"
   )
   
@@ -53,8 +53,8 @@ object Highlight {
 
    private val brada = Highlight(
     "@pttrn",
-    yt = "https://www.youtube.com/embed/kazClFw5Aj0",
-    "Novi Lorn, mračan kao tvoja duša."
+    yt = EmbeddedUtil.toEmbedded("https://youtu.be/36Ra3vTMSo0"),
+    "Droppin hits like Giannis."
   )
    
    private val fica = Highlight(
@@ -63,7 +63,7 @@ object Highlight {
     "2019. je pokazala da je Jme bolji brat."
   )
 
-  val items = Seq(fica, mimi, goran, vidak, kimi, rale)
+  val items = Seq(fica, mimi, goran, vidak, kimi, rale, brada)
 
   def element() = {
     val random = new Random
