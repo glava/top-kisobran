@@ -65,9 +65,11 @@ class TopListService(topListRepository: TopListRepository,
       pathPrefix("lista" / Remaining) { id =>
         get {
           complete {
-            topListRepository.findTopList(id).map { lista =>
-              org.kisobran.top.html.lista.render(lista, false, false, Seq.empty)
-            }
+            for {
+              currentList <- topListRepository.findTopList(id)
+              listIdsWithSameArtist <- statsRepository.findByArtist(currentList.map(_.artists).getOrElse(Seq.empty))
+              similarLists <- topListRepository.findTopList(listIdsWithSameArtist)
+            } yield org.kisobran.top.html.lista.render(currentList, false, false, Seq.empty, similarLists)
           }
         }
       } ~
@@ -114,7 +116,7 @@ class TopListService(topListRepository: TopListRepository,
               val page = _page.toInt
               val year = _year.toInt
               Crawler.extract(year, skip.isDefined, yt.isDefined, page)(topListRepository).map { t =>
-                org.kisobran.top.html.lista.render(t.head, false, false, Seq.empty)
+                org.kisobran.top.html.lista.render(t.head, false, false, Seq.empty, Seq.empty)
               }
             }
           }

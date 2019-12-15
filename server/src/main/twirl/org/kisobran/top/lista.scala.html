@@ -1,4 +1,4 @@
-@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean, stats: Seq[org.kisobran.top.db.Stats] = Seq.empty)
+@(entries: Option[org.kisobran.top.db.TopListEntries], message: Boolean, admin: Boolean, stats: Seq[org.kisobran.top.db.Stats] = Seq.empty, similar: Seq[org.kisobran.top.db.TopListEntries])
 
 @for(entry <- entries) {
 
@@ -56,6 +56,54 @@
         </p>
     </div>
 </div>
+
+@if(similar.nonEmpty){
+    <div class="row" style="padding-top: 60px;">
+        <div class="col-6 mx-auto">
+            <h2>🕵️ Liste koje imaju slične izvođače 🕵️</h2>
+        </div>
+    </div>
+}
+
+@for(sim <- similar){
+    <div class="row" style="padding-top: 60px;">
+
+        <div class="col-6 mx-auto">
+            <h3><a href="/lista/@entry.id"> @sim.title</a></h3>
+            <p>1. @sim.artist1 – @sim.song1 <br>
+                2. @sim.artist2 – @sim.song2 <br>
+                3. @sim.artist3 – @sim.song3 <br>
+                4. @sim.artist4 – @sim.song4 <br>
+                5. @sim.artist5 – @sim.song5 <br>
+                6. @sim.artist6 - @sim.song6 <br>
+                7. @sim.artist7 – @sim.song7 <br>
+                8. @sim.artist8 – @sim.song8 <br>
+                9. @sim.artist9 – @sim.song9 <br>
+                10. @sim.artist10 – @sim.song10 </p>
+            <p>
+                @for(y <- sim.ytLink) {
+            <div class="embed-responsive embed-responsive-16by9">
+                @if(y.contains("soundcloud")) {
+                <iframe width="100%" height="300"
+                        scrolling="no"
+                        frameborder="no"
+                        allow="autoplay"
+                        src="@y">
+
+                </iframe>
+                } else {
+                <iframe class="embed-responsive-item" src="@y" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+                }
+            </div>
+            }
+            </p>
+        </div>
+    </div>
+}
+
 @if(admin) {
 
 <div class="row" style="padding-top: 60px;">

@@ -25,7 +25,7 @@ class AdminRoutes(authenticator: Credentials => Option[String],
       case Some(id) =>
         topListRepository.findTopList(id).flatMap { lista =>
           statsRepository.find(id).map { stats =>
-            org.kisobran.top.html.lista.render(lista, false, true, stats)
+            org.kisobran.top.html.lista.render(lista, false, true, stats, Seq.empty)
           }
         }
       case None =>

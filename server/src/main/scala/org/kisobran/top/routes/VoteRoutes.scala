@@ -43,7 +43,7 @@ class VoteRoutes(topListRepository: TopListRepository,
       }.getOrElse(Future.successful(Seq.empty))
 
       insertOperation.map { _ =>
-        org.kisobran.top.html.lista.render(topListEntry, message = true, admin = false, Seq.empty)
+        org.kisobran.top.html.lista.render(topListEntry, message = true, admin = false, Seq.empty, Seq.empty)
       }
     }
   }
