@@ -16,4 +16,6 @@ trait StatsRepository {
   def select(limit: Int, offset: Int): Future[Seq[Stats]]
 
   def find(id: String): Future[Seq[Stats]]
+
+  def findByArtist(artists: Seq[String]): Future[Seq[String]]
 }

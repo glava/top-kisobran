@@ -71,6 +71,18 @@ class TopListService(topListRepository: TopListRepository,
           }
         }
       } ~
+      pathPrefix("slicne" / Remaining) { id =>
+        get {
+          complete {
+            for {
+             currentList <- topListRepository.findTopList(id)
+             stats <- statsRepository.find(id)
+             listWithArtists <- statsRepository.findByArtist(stats.map(_.artist))
+             lists <- topListRepository.findTopList(listWithArtists)
+            } yield org.kisobran.top.html.similar.render(lists, currentList.map(_.title))
+          }
+        }
+      } ~
       archiveRoutes.route ~
       adminRoutes.route ~
       voteRoutes.route ~

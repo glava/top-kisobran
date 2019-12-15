@@ -1,0 +1,53 @@
+@(entries: Seq[org.kisobran.top.db.TopListEntries], name: Option[String])
+
+
+@main("Slične pesme") {
+
+<div class="row">
+    @for(realName <- name) {
+    <div class="col-8 mx-auto" style="text-align: center;">
+        <h1>Slične liste sa @name listom</h1>
+    </div>
+    }
+</div>
+
+@for(entry <- entries) {
+
+<div class="row" style="padding-top: 60px;">
+    <div class="col-6 mx-auto">
+        <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
+        <p>1. @entry.artist1 – @entry.song1 <br>
+            2. @entry.artist2 – @entry.song2 <br>
+            3. @entry.artist3 – @entry.song3 <br>
+            4. @entry.artist4 – @entry.song4 <br>
+            5. @entry.artist5 – @entry.song5 <br>
+            6. @entry.artist6 - @entry.song6 <br>
+            7. @entry.artist7 – @entry.song7 <br>
+            8. @entry.artist8 – @entry.song8 <br>
+            9. @entry.artist9 – @entry.song9 <br>
+            10. @entry.artist10 – @entry.song10 </p>
+        <p>
+            @for(y <- entry.ytLink) {
+        <div class="embed-responsive embed-responsive-16by9">
+                @if(y.contains("soundcloud")) {
+                    <iframe width="100%" height="300"
+                            scrolling="no"
+                            frameborder="no"
+                            allow="autoplay"
+                            src="@y">
+
+                    </iframe>
+        } else {
+                <iframe class="embed-responsive-item" src="@y" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+        }
+        </div>
+        }
+        </p>
+    </div>
+</div>
+}
+
+}

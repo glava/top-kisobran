@@ -125,6 +125,9 @@ class SlickTopListRepository(dataSource: DataSource)(implicit val profile: JdbcP
   override def findTopList(id: String): Future[Option[TopListEntries]] =
     db.run(topList.filter(_.id === id).take(1).result.headOption)
 
+  override def findTopList(ids: Seq[String]): Future[Seq[TopListEntries]] =
+    db.run(topList.filter(_.id inSet  ids).take(10).result)
+
   override def select(limit: Int, offset: Int, isEnabled: Boolean, year: Int): Future[Seq[TopListEntries]] =
     db.run(topList.filter(_.enabled === isEnabled).filter(_.year === year)
       .sortBy(_.updatedAt.desc)

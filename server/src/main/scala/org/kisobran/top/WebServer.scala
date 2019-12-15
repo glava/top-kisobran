@@ -37,16 +37,23 @@ object WebServer extends LoggingSupport {
         "https://www.youtube.com/embed/vIh7IsgauRQ" // worst darts
       )
 
-      statsRepository.ensureTablesPresent(true)
-      topListRepository.ensureTablesPresent(true).map { _ =>
-        (1 to 20).map { t =>
-          topListRepository.createTopList(Some("use@somebody.com"),
-          (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) },
-          s"${t}-best-list",
-            true,
-            Configuration.currentYear,
-            Some(videos(t % videos.size) + s"?$t")
-          )
+      statsRepository.ensureTablesPresent(true).map { _ =>
+        topListRepository.ensureTablesPresent(true).map { _ =>
+          (1 to 20).map { t =>
+            val entries = (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) }
+            topListRepository.createTopList(
+              userEmail = Some("use@somebody.com"),
+              entries,
+              s"${t}-best-list",
+              true,
+              Configuration.currentYear,
+              Some(videos(t % videos.size) + s"?$t")
+            ).map { entrie =>
+              entrie.map { lists =>
+                statsRepository.createStats(lists.id, entries)
+              }
+            }
+          }
         }
       }
     }

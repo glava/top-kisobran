@@ -84,6 +84,11 @@ class SlickStatsRepository(dataSource: DataSource)(implicit val profile: JdbcPro
   override def find(id: String): Future[Seq[Stats]] = {
     db.run(statsTable.filter(_.id === id).take(10).result)
   }
+
+  def findByArtist(artistNames: Seq[String]): Future[Seq[String]] = {
+    db.run(statsTable.filter(_.artist inSet artistNames).distinctOn(_.id).take(10).map(_.id).result)
+  }
+
 }
 
 final case class Stats(id: String, position: Int, song: String, artist: String, points: Int, enabled: Boolean, updatedAt: Long)
