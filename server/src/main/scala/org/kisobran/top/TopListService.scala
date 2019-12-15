@@ -87,9 +87,13 @@ class TopListService(topListRepository: TopListRepository,
              stats <- statsRepository.find(id)
              listWithArtists <- statsRepository.findByArtist(stats.map(_.artist))
              lists <- topListRepository.findTopList(listWithArtists)
-            } yield org.kisobran.top.html.similar.render(
-              lists.filterNot(_.id == currentList.map(_.id).getOrElse("")), // filter the same list  
-              currentList.map(_.title))
+            } yield {
+              log.info(s"list listWithArtists: ${listWithArtists}")
+              log.info(s"list ids: ${lists.map(_.id)}")
+              org.kisobran.top.html.similar.render(
+                lists.filterNot(_.id == currentList.map(_.id).getOrElse("")), // filter the same list
+                currentList.map(_.title))
+            }
           }
         }
       } ~
