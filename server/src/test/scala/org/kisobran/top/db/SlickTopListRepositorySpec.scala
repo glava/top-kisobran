@@ -1,6 +1,8 @@
 package org.kisobran.top.db
 
 
+import java.util.UUID
+
 import org.kisobran.top.model.Entry
 import org.scalatest.{FlatSpec, _}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -16,9 +18,11 @@ class SlickTopListRepositorySpec extends FlatSpec
   with IntegrationPatience {
 
   val slickTopListRepository = new SlickTopListRepository(DbTestConfiguration.testMySQL)(H2Profile, ExecutionContext.global)
+  val slickStatsRepository = new SlickStatsRepository(DbTestConfiguration.testMySQL)(H2Profile, ExecutionContext.global)
 
   override def beforeEach(): Unit = {
     slickTopListRepository.ensureTablesPresent(true).futureValue
+    slickStatsRepository.ensureTablesPresent(true).futureValue
   }
 
   "slickTopListRepository" should "play nice" in {
@@ -57,6 +61,38 @@ class SlickTopListRepositorySpec extends FlatSpec
     returned.get.artist10 should be("artist10")
 
     returned.get.enabled should be(false)
+
+  }
+
+  it should "be able to return similar" in {
+
+    val entries = (1 to 10).map { i => Entry(s"artist${i}", s"song${i}", i, i) }
+
+    def randomNineEntries: Seq[Entry] = (1 to 9).map { i => Entry(s"artist${UUID.randomUUID()}", s"song${i}", i, i) }
+
+    val lists = entries.map{ similarEntey =>
+      val diffEntries  =Seq(similarEntey) ++ randomNineEntries
+      val list = slickTopListRepository.createTopList(
+        Some("use@somebody.com"),
+        diffEntries,
+        s"best-list-${similarEntey}",
+        true,
+        2018
+      ).futureValue
+      slickStatsRepository.createStats(list.get.id, diffEntries)
+    }
+
+    val stored = slickTopListRepository.createTopList(
+      Some("use@somebody.com"),
+      entries,
+      "best-list",
+      true,
+      2018
+    ).futureValue
+
+    val returned = slickStatsRepository.findByArtist(entries.map(_.artist)).futureValue
+    returned.size shouldBe 10
+    slickTopListRepository.findTopList(returned).futureValue.size shouldBe 10
 
   }
 
