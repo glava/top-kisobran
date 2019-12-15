@@ -69,7 +69,13 @@ class TopListService(topListRepository: TopListRepository,
               currentList <- topListRepository.findTopList(id)
               listIdsWithSameArtist <- statsRepository.findByArtist(currentList.map(_.artists).getOrElse(Seq.empty))
               similarLists <- topListRepository.findTopList(listIdsWithSameArtist)
-            } yield org.kisobran.top.html.lista.render(currentList, false, false, Seq.empty, similarLists)
+            } yield org.kisobran.top.html.lista.render(
+              entries = currentList,
+              message= false,
+              admin = false,
+              stats = Seq.empty,
+              similar = similarLists.filterNot(_.id == currentList.map(_.id).getOrElse("")) //filter the same list
+            )
           }
         }
       } ~
@@ -81,7 +87,9 @@ class TopListService(topListRepository: TopListRepository,
              stats <- statsRepository.find(id)
              listWithArtists <- statsRepository.findByArtist(stats.map(_.artist))
              lists <- topListRepository.findTopList(listWithArtists)
-            } yield org.kisobran.top.html.similar.render(lists, currentList.map(_.title))
+            } yield org.kisobran.top.html.similar.render(
+              lists.filterNot(_.id == currentList.map(_.id).getOrElse("")), // filter the same list  
+              currentList.map(_.title))
           }
         }
       } ~
