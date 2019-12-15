@@ -85,8 +85,8 @@ class SlickStatsRepository(dataSource: DataSource)(implicit val profile: JdbcPro
     db.run(statsTable.filter(_.id === id).take(10).result)
   }
 
-  def findByArtist(artistNames: Seq[String]): Future[Seq[String]] = {
-    db.run(statsTable.filter(_.artist inSet artistNames).filter(_.enabled === true).distinctOn(_.id).take(10).map(_.id).result)
+  def findByArtist(artistNames: Seq[String]) = {
+    db.run(statsTable.filter(_.artist inSet artistNames).filter(_.enabled === true).groupBy(_.id).map(_._1).take(20).result)
   }
 
 }
