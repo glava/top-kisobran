@@ -23,9 +23,9 @@ class VoteRoutes(topListRepository: TopListRepository,
   private def votePage(formContent: Map[String, String]): Future[Future[HtmlFormat.Appendable]] = {
     val title = formContent.getOrElse("listName", s"untilted-${UUID.randomUUID()}")
     val entries = (1 to 10).map {
-      case 1 => Entry(formContent(s"inputArtist1"), formContent(s"inputSong1"), position = 1, points = 3)
-      case 2 => Entry(formContent(s"inputArtist2"), formContent(s"inputSong2"), position = 2, points = 2)
-      case index@_ => Entry(formContent(s"inputArtist$index"), formContent(s"inputSong$index"), position = index, points = 1)
+      case 1 => Entry(formContent(s"inputArtist1"), formContent(s"inputSong1"), position = 1, points = 10)
+      case 2 => Entry(formContent(s"inputArtist2"), formContent(s"inputSong2"), position = 2, points = 9)
+      case index@_ => Entry(formContent(s"inputArtist$index"), formContent(s"inputSong$index"), position = index, points = 8)
     }
 
     log.info(title)
