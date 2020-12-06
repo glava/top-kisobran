@@ -11,4 +11,8 @@ class EmbeddedUtilSpec extends FlatSpec with Matchers {
   "it" should "process soundcloud links" in {
     toEmbedded("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323905173") should be("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323905173&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true")
   }
+
+  "it" should "process spotify links" in {
+    embeddedSpotify("https://open.spotify.com/playlist/37nLtO3eh5KSAnJygFVsl6") should be(Some("https://open.spotify.com/embed/playlist/37nLtO3eh5KSAnJygFVsl6"))
+  }
 }

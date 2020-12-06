@@ -6,7 +6,8 @@ case class TopList(id: Long,
                    userEmail: String,
                    year: Int,
                    title: String,
-                   created: Long)
+                   created: Long,
+                   externalPlaylistLink: Option[String] = None)
 
 case class Entry(artist: String, song: String, position: Int, points: Int)
 
