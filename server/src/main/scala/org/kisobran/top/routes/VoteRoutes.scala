@@ -51,7 +51,7 @@ class VoteRoutes(topListRepository: TopListRepository,
       voteForm.email,
       voteForm.entries,
       voteForm.title,
-      enabled = false,
+      enabled = true,
       Configuration.currentYear,
       ytLink = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.embeddedSpotify(p))
     ).map { topListEntry =>
