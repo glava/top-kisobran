@@ -9,7 +9,6 @@ import org.kisobran.top.db.{TopListEntries, EmbeddedUtil}
 import org.kisobran.top.model.Highlight._
 import org.kisobran.top.repository.{StatsRepository, TopListRepository, WinnersRepository}
 import org.kisobran.top.routes.{AdminRoutes, ArchiveRoutes, RecommendationRoutes, VoteRoutes}
-import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
 import org.kisobran.top.util.LoggingSupport
 
