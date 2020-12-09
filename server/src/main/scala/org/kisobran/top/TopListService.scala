@@ -77,6 +77,22 @@ class TopListService(topListRepository: TopListRepository,
               similar = similarLists.filterNot(_.id == currentList.map(_.id).getOrElse("")) //filter the same list
             )
           }
+        } ~
+        post {
+          // this post is introduced as a landing spot from the voting for users that need message
+          complete {
+            for {
+              currentList <- topListRepository.findTopList(id)
+              listIdsWithSameArtist <- statsRepository.findByArtist(currentList.map(_.artists).getOrElse(Seq.empty))
+              similarLists <- topListRepository.findTopList(listIdsWithSameArtist)
+            } yield org.kisobran.top.html.lista.render(
+              entries = currentList,
+              message= true,
+              admin = false,
+              stats = Seq.empty,
+              similar = similarLists.filterNot(_.id == currentList.map(_.id).getOrElse("")) //filter the same list
+            )
+          }
         }
       } ~
       pathPrefix("slicne" / Remaining) { id =>

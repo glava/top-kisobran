@@ -2,6 +2,7 @@ package org.kisobran.top.routes
 
 import java.util.UUID
 
+import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.{Directives, Route}
 import org.kisobran.top.Configuration
 import org.kisobran.top.db.{EmbeddedUtil, Stats, TopListEntries}
@@ -13,6 +14,7 @@ import play.twirl.api.HtmlFormat
 
 import scala.collection.immutable
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Success}
 
 class VoteRoutes(topListRepository: TopListRepository,
                  statsRepository: StatsRepository)(implicit executionContext: ExecutionContext) extends Directives with LoggingSupport {
@@ -33,17 +35,18 @@ class VoteRoutes(topListRepository: TopListRepository,
   }
 
   val route: Route = pathPrefix("vote") {
-    post(formFieldMap(
+    post(formFieldMap {
       formContent => {
-        val page: Future[Future[HtmlFormat.Appendable]] = parse(formContent).map(votePage).getOrElse(
-          Future.successful(Future.successful(org.kisobran.top.html.voted.render()))
-        )
-        complete(page)
+        onComplete(parse(formContent).map(votePage).get) {
+          case Success(Some((t, true))) =>  redirect(s"/lista/${t}", StatusCodes.SeeOther)
+          case Success(Some((t, false))) =>  redirect(s"/lista/${t}", StatusCodes.PermanentRedirect)
+          case Failure(_) => redirect("/", StatusCodes.SeeOther)
+        }
       }
-    ))
+    })
   }
 
-  private def votePage(voteForm: VoteForm): Future[Future[HtmlFormat.Appendable]] = {
+  private def votePage(voteForm: VoteForm) = {
     log.info(voteForm.title)
     log.info(voteForm.entries.toString)
 
@@ -55,20 +58,17 @@ class VoteRoutes(topListRepository: TopListRepository,
       voteForm.title,
       enabled = maybeExternalPlaylist.isDefined,
       Configuration.currentYear,
-      ytLink = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.embeddedSpotify(p))
-    ).map { topListEntry =>
-      val insertOperation: Future[Seq[Stats]] = topListEntry.map { topList =>
+      ytLink = maybeExternalPlaylist
+    ).flatMap { topListEntry =>
+      topListEntry.map { topList =>
         if (maybeExternalPlaylist.isDefined) {
           // this is trick not to save in stats table if we are on external playlist
-          Future.successful(Seq.empty)
+          Future.successful(Some((topList.id, true)))
         }
         else {
-          statsRepository.createStats(topList.id, voteForm.entries)
+          statsRepository.createStats(topList.id, voteForm.entries).map(_ => Some((topList.id, false)))
         }
-      }.getOrElse(Future.successful(Seq.empty))
-      insertOperation.map { _ =>
-        org.kisobran.top.html.lista.render(topListEntry, message = true, admin = false, Seq.empty, Seq.empty)
-      }
+      }.getOrElse(Future.successful(None))
     }
   }
 }
