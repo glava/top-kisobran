@@ -58,7 +58,7 @@ class TopListService(topListRepository: TopListRepository,
       pathPrefix("glasaj") {
         get {
           complete {
-            org.kisobran.top.html.glasaj.render(SharedMessages.itWorks)
+            org.kisobran.top.html.glasaj.render()
           }
         }
       } ~
