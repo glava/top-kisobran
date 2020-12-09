@@ -4,7 +4,7 @@ import java.util.UUID
 
 import akka.http.scaladsl.server.{Directives, Route}
 import org.kisobran.top.Configuration
-import org.kisobran.top.db.{EmbeddedUtil, Stats}
+import org.kisobran.top.db.{EmbeddedUtil, Stats, TopListEntries}
 import org.kisobran.top.model.Entry
 import org.kisobran.top.repository.{StatsRepository, TopListRepository}
 import org.kisobran.top.util.LoggingSupport
@@ -47,16 +47,24 @@ class VoteRoutes(topListRepository: TopListRepository,
     log.info(voteForm.title)
     log.info(voteForm.entries.toString)
 
+    val maybeExternalPlaylist: Option[String] = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.embeddedSpotify(p))
+
     topListRepository.createTopList(
       voteForm.email,
       voteForm.entries,
       voteForm.title,
-      enabled = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.embeddedSpotify(p)).isDefined,
+      enabled = maybeExternalPlaylist.isDefined,
       Configuration.currentYear,
       ytLink = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.embeddedSpotify(p))
     ).map { topListEntry =>
       val insertOperation: Future[Seq[Stats]] = topListEntry.map { topList =>
-        statsRepository.createStats(topList.id, voteForm.entries)
+        if (maybeExternalPlaylist.isDefined) {
+          // this is trick not to save in stats table if we are on external playlist
+          Future.successful(Seq.empty)
+        }
+        else {
+          statsRepository.createStats(topList.id, voteForm.entries)
+        }
       }.getOrElse(Future.successful(Seq.empty))
       insertOperation.map { _ =>
         org.kisobran.top.html.lista.render(topListEntry, message = true, admin = false, Seq.empty, Seq.empty)
