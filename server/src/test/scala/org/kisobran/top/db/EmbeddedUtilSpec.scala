@@ -13,6 +13,6 @@ class EmbeddedUtilSpec extends FlatSpec with Matchers {
   }
 
   "it" should "process spotify links" in {
-    embeddedSpotify("https://open.spotify.com/playlist/37nLtO3eh5KSAnJygFVsl6") should be(Some("https://open.spotify.com/embed/playlist/37nLtO3eh5KSAnJygFVsl6"))
+    spotify("https://open.spotify.com/playlist/37nLtO3eh5KSAnJygFVsl6") should be(Some("https://open.spotify.com/embed/playlist/37nLtO3eh5KSAnJygFVsl6"))
   }
 }

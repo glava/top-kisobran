@@ -13,7 +13,7 @@ object EmbeddedUtil {
     }
   }
 
-  def embeddedSpotify(spotifyPLaylist: String): Option[String] = {
+  def spotify(spotifyPLaylist: String): Option[String] = {
     Try {
       "https://open.spotify.com/embed/playlist/" + spotifyPLaylist.split("playlist/").tail.head
     }.toOption

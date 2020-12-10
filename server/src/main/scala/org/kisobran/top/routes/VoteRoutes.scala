@@ -50,7 +50,7 @@ class VoteRoutes(topListRepository: TopListRepository,
     log.info(voteForm.title)
     log.info(voteForm.entries.toString)
 
-    val maybeExternalPlaylist: Option[String] = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.embeddedSpotify(p))
+    val maybeExternalPlaylist: Option[String] = voteForm.externalPlaylist.flatMap(p => EmbeddedUtil.spotify(p))
 
     topListRepository.createTopList(
       voteForm.email,
