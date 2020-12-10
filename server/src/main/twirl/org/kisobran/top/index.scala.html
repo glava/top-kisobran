@@ -1,4 +1,4 @@
-@(entries: Seq[org.kisobran.top.db.TopListEntries], forwardPage: Option[Int], backPage: Option[Int], higlight: org.kisobran.top.model.Highlight)
+@(entries: Seq[org.kisobran.top.db.TopListEntries], forwardPage: Option[Int], backPage: Option[Int], higlight: org.kisobran.top.model.Highlight, year: Int)
 
 
 @main("Izaberi svojih top deset") {
@@ -116,7 +116,7 @@
     </div>
     <div class="col-1">
         @if(forwardPage.isEmpty) {
-        <a href="/arhiva?year=2018">Liste iz 2018. →</a>
+        <a href="/arhiva?year=@{year - 1}">Liste iz @{year - 1}. →</a>
         } else {
         @for(p <- forwardPage) {
         <a href="/liste?page=@p">Još listi →</a>

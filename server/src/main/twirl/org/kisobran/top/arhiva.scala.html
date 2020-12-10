@@ -58,7 +58,7 @@
     </div>
     <div class="col-1">
         @if(forwardPage.isEmpty) {
-            <a href="/arhiva?year=2018">Liste iz 2018. →</a>
+            <a href="/arhiva?year=@{year -1 }">Liste iz @{year - 1}. →</a>
         } else {
             @for(p <- forwardPage) {
                 <a href="/arhiva?page=@p&year=@year">Još listi →</a>

@@ -49,7 +49,7 @@ class TopListService(topListRepository: TopListRepository,
       get {
         complete {
           selectCache.get(limit, 0, true, currentYear).map { all =>
-            org.kisobran.top.html.index.render(all, Some(1), None, element())
+            org.kisobran.top.html.index.render(all, Some(1), None, element(), Configuration.currentYear)
           }
         }
       }
@@ -124,7 +124,7 @@ class TopListService(topListRepository: TopListRepository,
                 _ <- topListRepository.update(formContent("id"), formContent.get("yt_link").map(toEmbedded))
                 _ <- statsRepository.enable(formContent("id"))
                 all <- selectCache.get(limit, 0, true, currentYear)
-              } yield org.kisobran.top.html.index.render(all, Some(1), None, element())
+              } yield org.kisobran.top.html.index.render(all, Some(1), None, element(), Configuration.currentYear)
             }
           }
         }
@@ -157,7 +157,7 @@ class TopListService(topListRepository: TopListRepository,
               selectCache.get(limit, limit * page, true, Configuration.currentYear).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
-                org.kisobran.top.html.index.render(all, forwardPage, backPage, element())
+                org.kisobran.top.html.index.render(all, forwardPage, backPage, element(), Configuration.currentYear)
               }
             }
           }
