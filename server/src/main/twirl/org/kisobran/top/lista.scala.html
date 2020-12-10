@@ -24,36 +24,50 @@
         <h3><a href="/lista/@entry.id">@entry.title</a></h3>
         @for(y <- entry.ytLink) {
         @if(!y.contains("spotify")) {
-            <p>1. @entry.artist1 – @entry.song1 <br>
-                2. @entry.artist2 – @entry.song2 <br>
-                3. @entry.artist3 – @entry.song3 <br>
-                4. @entry.artist4 – @entry.song4 <br>
-                5. @entry.artist5 – @entry.song5 <br>
-                6. @entry.artist6 - @entry.song6 <br>
-                7. @entry.artist7 – @entry.song7 <br>
-                8. @entry.artist8 – @entry.song8 <br>
-                9. @entry.artist9 – @entry.song9 <br>
-                10. @entry.artist10 – @entry.song10 </p>
-                <p>
+        <p>1. @entry.artist1 – @entry.song1 <br>
+            2. @entry.artist2 – @entry.song2 <br>
+            3. @entry.artist3 – @entry.song3 <br>
+            4. @entry.artist4 – @entry.song4 <br>
+            5. @entry.artist5 – @entry.song5 <br>
+            6. @entry.artist6 - @entry.song6 <br>
+            7. @entry.artist7 – @entry.song7 <br>
+            8. @entry.artist8 – @entry.song8 <br>
+            9. @entry.artist9 – @entry.song9 <br>
+            10. @entry.artist10 – @entry.song10 </p>
+        <p>
             }
             }
+
+
             @for(y <- entry.ytLink) {
-                <div class="embed-responsive embed-responsive-16by9">
-                @if(y.contains("soundcloud")) {
-                    <iframe width="100%"
-                            height="300"
-                            scrolling="no"
-                            frameborder="no"
-                            allow="autoplay"
-                            src="@y">
-                    </iframe>
-                } else {
-                    <iframe class="embed-responsive-item"
-                            src="@y"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                    </iframe>
+
+        <div class="embed-responsive embed-responsive-16by9">
+
+            @if(!y.contains("spotify")) {
+            <iframe src="@y"
+                    frameborder="0"
+                    class="embed-responsive-item"
+                    allowtransparency="true"
+                    width="520"
+                    height="600"
+                    allow="encrypted-media">
+            </iframe>
+            }
+            @if(y.contains("soundcloud")) {
+            <iframe width="100%"
+                    height="300"
+                    scrolling="no"
+                    frameborder="no"
+                    allow="autoplay"
+                    src="@y">
+            </iframe>
+            } else {
+            <iframe class="embed-responsive-item"
+                    src="@y"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
             }
         </div>
         }
@@ -62,50 +76,50 @@
 </div>
 
 @if(similar.nonEmpty){
-    <div class="row" style="padding-top: 60px;">
-        <div class="col-6 mx-auto">
-            <h2>🕵️ Liste koje imaju slične izvođače 🕵️</h2>
-        </div>
+<div class="row" style="padding-top: 60px;">
+    <div class="col-6 mx-auto">
+        <h2>🕵️ Liste koje imaju slične izvođače 🕵️</h2>
     </div>
+</div>
 }
 
 @for(sim <- similar){
-    <div class="row" style="padding-top: 60px;">
+<div class="row" style="padding-top: 60px;">
 
-        <div class="col-6 mx-auto">
-            <h3><a href="/lista/@sim.id"> @sim.title</a></h3>
-            <p>1. @sim.artist1 – @sim.song1 <br>
-                2. @sim.artist2 – @sim.song2 <br>
-                3. @sim.artist3 – @sim.song3 <br>
-                4. @sim.artist4 – @sim.song4 <br>
-                5. @sim.artist5 – @sim.song5 <br>
-                6. @sim.artist6 - @sim.song6 <br>
-                7. @sim.artist7 – @sim.song7 <br>
-                8. @sim.artist8 – @sim.song8 <br>
-                9. @sim.artist9 – @sim.song9 <br>
-                10. @sim.artist10 – @sim.song10 </p>
-            <p>
-                @for(y <- sim.ytLink) {
-            <div class="embed-responsive embed-responsive-16by9">
-                @if(y.contains("soundcloud")) {
-                <iframe width="100%" height="300"
-                        scrolling="no"
-                        frameborder="no"
-                        allow="autoplay"
-                        src="@y">
+    <div class="col-6 mx-auto">
+        <h3><a href="/lista/@sim.id"> @sim.title</a></h3>
+        <p>1. @sim.artist1 – @sim.song1 <br>
+            2. @sim.artist2 – @sim.song2 <br>
+            3. @sim.artist3 – @sim.song3 <br>
+            4. @sim.artist4 – @sim.song4 <br>
+            5. @sim.artist5 – @sim.song5 <br>
+            6. @sim.artist6 - @sim.song6 <br>
+            7. @sim.artist7 – @sim.song7 <br>
+            8. @sim.artist8 – @sim.song8 <br>
+            9. @sim.artist9 – @sim.song9 <br>
+            10. @sim.artist10 – @sim.song10 </p>
+        <p>
+            @for(y <- sim.ytLink) {
+        <div class="embed-responsive embed-responsive-16by9">
+            @if(y.contains("soundcloud")) {
+            <iframe width="100%" height="300"
+                    scrolling="no"
+                    frameborder="no"
+                    allow="autoplay"
+                    src="@y">
 
-                </iframe>
-                } else {
-                <iframe class="embed-responsive-item" src="@y" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                </iframe>
-                }
-            </div>
+            </iframe>
+            } else {
+            <iframe class="embed-responsive-item" src="@y" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
             }
-            </p>
         </div>
+        }
+        </p>
     </div>
+</div>
 }
 
 @if(admin) {
@@ -114,9 +128,9 @@
     <div class="col-sm-6 mx-auto">
         <h2>Stats table</h2>
         <p>
-        @for(stat <- stats) {
+            @for(stat <- stats) {
             @stat.position – @stat.artist - @stat.song - @stat.points - @stat.enabled <br>
-        }
+            }
         </p>
     </div>
 </div>
@@ -124,7 +138,8 @@
 <form action="/update" method="POST" style="padding-top:20px">
     <div class="col-6 mx-auto">
         <input type="text" class="form-control" id="id" name="id" value="@entry.id">
-        <input type="text" class="form-control" id="yt_link" name="yt_link" value="@entry.ytLink" placeholder="YouTube link">
+        <input type="text" class="form-control" id="yt_link" name="yt_link" value="@entry.ytLink"
+               placeholder="YouTube link">
         <button type="submit" class="btn btn-primary">Enable</button>
     </div>
 </form>
