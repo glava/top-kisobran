@@ -51,7 +51,7 @@
 @for(entry <- entries) {
 
 <div class="row" style="padding-top: 60px;">
-    <div class="col-10 col-lg-6 mx-auto">
+    <div class="col-11 col-lg-6 mx-auto">
         <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
         @for(y <- entry.ytLink) {
         <!--Hide entries if there is spotify link-->
@@ -74,7 +74,7 @@
 
 <div class="row">
     @for(y <- entry.ytLink) {
-    <div class="col-10 col-lg-6 mx-auto">
+    <div class="col-11 col-lg-6 mx-auto">
 
 
             @if(y.contains("soundcloud")) {
@@ -90,12 +90,14 @@
             }
 
             @if(y.contains("spotify")) {
-            <iframe src="@y"
+        <div class="embed-responsive embed-responsive-1by1">
+        <iframe src="@y"
                     frameborder="0"
                     allowtransparency="true"
                     height="600"
                     allow="encrypted-media">
             </iframe>
+        </div>
             }
 
             @if(y.contains("youtube")) {
@@ -117,7 +119,7 @@
         <a href="/liste?page=@p">← Vrati se nazad </a>
         }
     </div>
-    <div class="col-10" style="text-align: center;">
+    <div class="col-11" style="text-align: center;">
     </div>
     <div class="col-1">
         @if(forwardPage.isEmpty) {
