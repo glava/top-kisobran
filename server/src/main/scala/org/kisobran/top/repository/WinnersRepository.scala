@@ -109,17 +109,30 @@ object InMemoryWinnersRepository extends WinnersRepository {
   )
 
   val Entries2018 = Seq(
-      Entry("Vojko V", "Ne Može", 1, 1),
-      Entry("Childish Gambino", "This Is America", 2, 2),
-      Entry("Lykke Li", "Deep End", 3, 3),
-      Entry("Bicep", "Opal - Four Tet Remix", 4, 4),
-      Entry("Arctic Monkeys", "Four Out Of Five", 5, 5),
-      Entry("Mark Ronson", "Nothing Breaks Like a Heart (feat. Miley Cyrus)", 6, 6),
-      Entry("Coby", "Biseri iz Blata", 7, 7),
-      Entry("Billie Eilish", "When The Party's Over", 8, 8),
-      Entry("Drake", "Nice For What", 9, 9),
-      Entry("Lana Del Rey", "Mariners Apartment Complex", 10, 10)
-    )
+    Entry("Vojko V", "Ne Može", 1, 1),
+    Entry("Childish Gambino", "This Is America", 2, 2),
+    Entry("Lykke Li", "Deep End", 3, 3),
+    Entry("Bicep", "Opal - Four Tet Remix", 4, 4),
+    Entry("Arctic Monkeys", "Four Out Of Five", 5, 5),
+    Entry("Mark Ronson", "Nothing Breaks Like a Heart (feat. Miley Cyrus)", 6, 6),
+    Entry("Coby", "Biseri iz Blata", 7, 7),
+    Entry("Billie Eilish", "When The Party's Over", 8, 8),
+    Entry("Drake", "Nice For What", 9, 9),
+    Entry("Lana Del Rey", "Mariners Apartment Complex", 10, 10)
+  )
+
+  val Entries2019 = Seq(
+    Entry("Local Natives", "When Am I Gonna Loose You", 1, 1),
+    Entry("Tame Impala", "Borderline", 2, 2),
+    Entry("Tyle, The Creator", "EARFQUAKE", 3, 3),
+    Entry("White Lies", "Tokyo", 4, 4),
+    Entry("Foal", "In Degrees", 5, 5),
+    Entry("Mark Ronson", "Late Night Feelings (feat. Lykke Li)", 6, 6),
+    Entry("Buč Kesidi", "Đuskanje ne pomaže", 7, 7),
+    Entry("Altin Gün", "Süpürgesi Yoncadan", 8, 8),
+    Entry("James Blake", "Barefoot In The Park (feat ROSALÍA", 9, 9),
+    Entry("Billie Eilish", "bad guy", 10, 10)
+  )
 
 
   val Winners: Map[Int, Winner] = Map(
@@ -127,54 +140,79 @@ object InMemoryWinnersRepository extends WinnersRepository {
       Entries2011,
       "Pa M83 je napravio himnu Kišobrana, djuskanje uz Foster The People i ljubav za I Follow Rivers dok nam se nije smučila",
       2011,
-      Some("https://youtu.be/dX3k_QDnzHE").map{ toEmbedded }
+      Some("https://youtu.be/dX3k_QDnzHE").map {
+        toEmbedded
+      }
     ),
     2012 -> Winner(
       Entries2012,
       "R U Mine? je hitčina od prvog slušanja, Frank Ocean odličan debi i The XX se vratili posle previše godina pauze",
       2012,
-      Some("https://youtu.be/VQH8ZTgna3Q").map{ toEmbedded }
+      Some("https://youtu.be/VQH8ZTgna3Q").map {
+        toEmbedded
+      }
     ),
-    2013 ->  Winner(
+    2013 -> Winner(
       Entries2013,
       "Drugu godinu za redom Arctic Monkeys na prvom mestu, dokle više Get Lucky, opasni Arcade Fire i The National i prelepi domaći debi Ti",
       2013,
-      Some("https://youtu.be/F586JktJyEg").map{ toEmbedded }
+      Some("https://youtu.be/F586JktJyEg").map {
+        toEmbedded
+      }
     ),
     2014 ->
       Winner(
         Entries2014,
         "Future Islands je bomba, Klaxons je žurka, FKA Twigs je devojka koju gledaš krišom a Caribou je ljubav.",
         2014,
-        Some("https://youtu.be/-5Ae-LhMIG0").map{ toEmbedded }
+        Some("https://youtu.be/-5Ae-LhMIG0").map {
+          toEmbedded
+        }
       ),
     2015 ->
       Winner(
         Entries2015,
         "Na Kišobran žurkama je King izabran za pesmu godine, Let it happen hoćemo live a Florence + The Machine ima album koji će se pamtiti",
         2015,
-        Some("https://youtu.be/g_uoH6hJilc").map{ toEmbedded }
+        Some("https://youtu.be/g_uoH6hJilc").map {
+          toEmbedded
+        }
       ),
     2016 ->
       Winner(
         Entries2016,
         "Koliko mi volimo The XX, Glass Animals je letnja indie albumčina, Redbone na repeat a Beyonce na tron",
         2016,
-        Some("https://youtu.be/blJKoXWlqJk").map{ toEmbedded }
+        Some("https://youtu.be/blJKoXWlqJk").map {
+          toEmbedded
+        }
       ),
     2017 ->
       Winner(
         Entries2017,
         "Arcade Fire je veliki i kada je slab, Portugal The Man smo puštali na vrhuncu žurke, The National opet pun pogodak, !!! razvalili Dom Omladine",
         2017,
-        Some("https://youtu.be/zC30BYR3CUk").map{ toEmbedded }
+        Some("https://youtu.be/zC30BYR3CUk").map {
+          toEmbedded
+        }
       ),
     2018 ->
       Winner(
         Entries2018,
         "Vojko V je glas Balkana, Arctic Monkeys su peto mesto od deset a Coby ima najgledaniji spot od većine pesama u listi",
         2018,
-        Some("https://youtu.be/fOEp1GiVsWs").map{ toEmbedded }
+        Some("https://youtu.be/fOEp1GiVsWs").map {
+          toEmbedded
+        }
+      ),
+    2019 ->
+      Winner(
+        Entries2019,
+        "Local Natives bolji nego ikad, Buč Kesidi brani domaće boje a lista ne može bez Foals, White Lies i Tame Impala-e",
+        2019,
+        Some("https://youtu.be/oWwytT5JAdM").map {
+          toEmbedded
+        }
       )
   )
 

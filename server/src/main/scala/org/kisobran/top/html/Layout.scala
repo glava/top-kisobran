@@ -25,7 +25,7 @@ object Layout {
 
         <!-- For Google -->
         <meta name="description" content="Izaberi svojih top 10 pesama"/>
-        <meta name="keywords" content="kišobran 2019"/>
+        <meta name="keywords" content="kišobran 2020"/>
 
         <meta name="author" content="kišobran"/>
         <meta name="copyright" content="kišobran"/>
@@ -75,6 +75,8 @@ object Layout {
                 </a>
                 <div class="dropdown-menu" aria-labelledby="download">
                   <a class="dropdown-item" href="/pobednici">Pobednici</a>
+                  <a class="dropdown-item" href="/arhiva?year=2019">2019</a>
+                  <a class="dropdown-item" href="/arhiva?year=2018">2018</a>
                   <a class="dropdown-item" href="/arhiva?year=2017">2017</a>
                   <a class="dropdown-item" href="/arhiva?year=2016">2016</a>
                   <a class="dropdown-item" href="/arhiva?year=2015">2015</a>

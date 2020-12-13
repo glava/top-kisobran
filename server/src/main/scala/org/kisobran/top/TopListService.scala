@@ -9,7 +9,6 @@ import org.kisobran.top.db.{TopListEntries, EmbeddedUtil}
 import org.kisobran.top.model.Highlight._
 import org.kisobran.top.repository.{StatsRepository, TopListRepository, WinnersRepository}
 import org.kisobran.top.routes.{AdminRoutes, ArchiveRoutes, RecommendationRoutes, VoteRoutes}
-import org.kisobran.top.shared.SharedMessages
 import org.kisobran.top.twirl.Implicits._
 import org.kisobran.top.util.LoggingSupport
 
@@ -50,7 +49,7 @@ class TopListService(topListRepository: TopListRepository,
       get {
         complete {
           selectCache.get(limit, 0, true, currentYear).map { all =>
-            org.kisobran.top.html.index.render(all, Some(1), None, element())
+            org.kisobran.top.html.index.render(all, Some(1), None, element(), Configuration.currentYear)
           }
         }
       }
@@ -58,7 +57,7 @@ class TopListService(topListRepository: TopListRepository,
       pathPrefix("glasaj") {
         get {
           complete {
-            org.kisobran.top.html.glasaj.render(SharedMessages.itWorks)
+            org.kisobran.top.html.glasaj.render()
           }
         }
       } ~
@@ -72,6 +71,22 @@ class TopListService(topListRepository: TopListRepository,
             } yield org.kisobran.top.html.lista.render(
               entries = currentList,
               message= false,
+              admin = false,
+              stats = Seq.empty,
+              similar = similarLists.filterNot(_.id == currentList.map(_.id).getOrElse("")) //filter the same list
+            )
+          }
+        } ~
+        post {
+          // this post is introduced as a landing spot from the voting for users that need message
+          complete {
+            for {
+              currentList <- topListRepository.findTopList(id)
+              listIdsWithSameArtist <- statsRepository.findByArtist(currentList.map(_.artists).getOrElse(Seq.empty))
+              similarLists <- topListRepository.findTopList(listIdsWithSameArtist)
+            } yield org.kisobran.top.html.lista.render(
+              entries = currentList,
+              message= true,
               admin = false,
               stats = Seq.empty,
               similar = similarLists.filterNot(_.id == currentList.map(_.id).getOrElse("")) //filter the same list
@@ -109,7 +124,7 @@ class TopListService(topListRepository: TopListRepository,
                 _ <- topListRepository.update(formContent("id"), formContent.get("yt_link").map(toEmbedded))
                 _ <- statsRepository.enable(formContent("id"))
                 all <- selectCache.get(limit, 0, true, currentYear)
-              } yield org.kisobran.top.html.index.render(all, Some(1), None, element())
+              } yield org.kisobran.top.html.index.render(all, Some(1), None, element(), Configuration.currentYear)
             }
           }
         }
@@ -142,7 +157,7 @@ class TopListService(topListRepository: TopListRepository,
               selectCache.get(limit, limit * page, true, Configuration.currentYear).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
-                org.kisobran.top.html.index.render(all, forwardPage, backPage, element())
+                org.kisobran.top.html.index.render(all, forwardPage, backPage, element(), Configuration.currentYear)
               }
             }
           }

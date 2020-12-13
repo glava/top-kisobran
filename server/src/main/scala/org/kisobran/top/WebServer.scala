@@ -31,10 +31,10 @@ object WebServer extends LoggingSupport {
     // todo: move to liqubase
     if (dbProfile == H2Profile) {
 
-      val videos = Seq(
+      val videos: Seq[String] = Seq(
         EmbeddedUtil.toEmbedded("https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/323905173"), // goran series
-        "https://www.youtube.com/embed/SlbVgjFvE3I", // Peggy Gou
-        "https://www.youtube.com/embed/vIh7IsgauRQ" // worst darts
+        EmbeddedUtil.spotify("https://open.spotify.com/playlist/6NrOhAuNMMG3cHBJ1kAm78").get,
+        EmbeddedUtil.toEmbedded("https://youtu.be/BwSGubat4hY") // worst darts
       )
 
       statsRepository.ensureTablesPresent(true).map { _ =>

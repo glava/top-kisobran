@@ -1,5 +1,7 @@
 package org.kisobran.top.db
 
+import scala.util.Try
+
 object EmbeddedUtil {
 
   def toEmbedded(embeddedLinkFromWeb: String): String = {
@@ -9,5 +11,11 @@ object EmbeddedUtil {
     } else {
       s"https://www.youtube.com/embed/${embeddedLinkFromWeb.split("/").last}"
     }
+  }
+
+  def spotify(spotifyPLaylist: String): Option[String] = {
+    Try {
+      "https://open.spotify.com/embed/playlist/" + spotifyPLaylist.split("playlist/").tail.head
+    }.toOption
   }
 }

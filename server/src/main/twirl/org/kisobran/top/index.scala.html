@@ -1,4 +1,4 @@
-@(entries: Seq[org.kisobran.top.db.TopListEntries], forwardPage: Option[Int], backPage: Option[Int], higlight: org.kisobran.top.model.Highlight)
+@(entries: Seq[org.kisobran.top.db.TopListEntries], forwardPage: Option[Int], backPage: Option[Int], higlight: org.kisobran.top.model.Highlight, year: Int)
 
 
 @main("Izaberi svojih top deset") {
@@ -50,29 +50,33 @@
 
 @for(entry <- entries) {
 
-<div class="row" style="padding-top: 60px;">
-    <div class="col-10 col-lg-6 mx-auto">
-        <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
-        <p>1. @entry.artist1 – @entry.song1 <br>
-            2. @entry.artist2 – @entry.song2 <br>
-            3. @entry.artist3 – @entry.song3 <br>
-            4. @entry.artist4 – @entry.song4 <br>
-            5. @entry.artist5 – @entry.song5 <br>
-            6. @entry.artist6 - @entry.song6 <br>
-            7. @entry.artist7 – @entry.song7 <br>
-            8. @entry.artist8 – @entry.song8 <br>
-            9. @entry.artist9 – @entry.song9 <br>
-            10. @entry.artist10 – @entry.song10
-        </p>
+    <div class="row" style="padding-top: 80px;">
+        <div class="col-11 col-lg-6 mx-auto">
+            <h3><a href="/lista/@entry.id"> @entry.title</a></h3>
+            @if(entry.ytLink.isEmpty || !entry.ytLink.exists(_.contains("spotify"))) {
+            <p>
+                1. @entry.artist1 – @entry.song1 <br>
+                2. @entry.artist2 – @entry.song2 <br>
+                3. @entry.artist3 – @entry.song3 <br>
+                4. @entry.artist4 – @entry.song4 <br>
+                5. @entry.artist5 – @entry.song5 <br>
+                6. @entry.artist6 - @entry.song6 <br>
+                7. @entry.artist7 – @entry.song7 <br>
+                8. @entry.artist8 – @entry.song8 <br>
+                9. @entry.artist9 – @entry.song9 <br>
+                10. @entry.artist10 – @entry.song10 </p>
+            <p>
+            }
+        </div>
     </div>
-</div>
 
-<div class="row">
-@for(y <- entry.ytLink) {
-    <div class="col-10 col-lg-6 mx-auto">
-        <div class="embed-responsive embed-responsive-16by9">
+    <div class="row">
+        @for(y <- entry.ytLink) {
+        <div class="col-11 col-lg-6 mx-auto" style="padding-bottom:18px;">
 
-            @if(y.contains("soundcloud")) {
+
+                @if(y.contains("soundcloud")) {
+                <div class="embed-responsive embed-responsive-16by9">
                 <iframe width="100%" height="300"
                         scrolling="no"
                         frameborder="no"
@@ -80,16 +84,31 @@
                         src="@y">
 
                 </iframe>
-            } else {
+                </div>
+                }
+
+                @if(y.contains("spotify")) {
+            <div class="embed-responsive embed-responsive-1by1">
+            <iframe src="@y"
+                        frameborder="0"
+                        allowtransparency="true"
+                        height="600"
+                        allow="encrypted-media">
+                </iframe>
+            </div>
+                }
+
+                @if(y.contains("youtube")) {
+                <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="@y" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                 </iframe>
-            }
+                </div>
+                }
         </div>
+        }
     </div>
-}
-</div>
 }
 
 <div class="row" style="padding-top: 10px;">
@@ -98,11 +117,11 @@
         <a href="/liste?page=@p">← Vrati se nazad </a>
         }
     </div>
-    <div class="col-10" style="text-align: center;">
+    <div class="col-11" style="text-align: center;">
     </div>
     <div class="col-1">
         @if(forwardPage.isEmpty) {
-        <a href="/arhiva?year=2018">Liste iz 2018. →</a>
+        <a href="/arhiva?year=@{    year - 1}">Liste iz @{year - 1}. →</a>
         } else {
         @for(p <- forwardPage) {
         <a href="/liste?page=@p">Još listi →</a>
