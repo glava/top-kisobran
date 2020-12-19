@@ -119,15 +119,15 @@
     </div>
     <div class="col-11" style="text-align: center;">
     </div>
-<!--    <div class="col-1">-->
-<!--        @if(forwardPage.isEmpty) {-->
-<!--        <a href="/arhiva?year=@{    year - 1}">Liste iz @{year - 1}. →</a>-->
-<!--        } else {-->
-<!--        @for(p <- forwardPage) {-->
-<!--        <a href="/liste?page=@p">Još listi →</a>-->
-<!--        }-->
-<!--        }-->
-<!--    </div>-->
+    <div class="col-1">
+        @if(forwardPage.isEmpty) {
+        <a href="/arhiva?year=@{    year - 1}">Liste iz @{year - 1}. →</a>
+        } else {
+        @for(p <- forwardPage) {
+        <a href="/liste?page=@p">Još listi →</a>
+        }
+        }
+    </div>
 </div>
 
 }
