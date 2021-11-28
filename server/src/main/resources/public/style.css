@@ -21,6 +21,23 @@
 
 }
 
+.centered {
+    text-align: center;
+}
+
+.header_padding {
+    padding-top: 50px;
+}
+
+.grad_text {
+    background: #F6F8F9;
+    background: -webkit-radial-gradient(circle farthest-corner at center center, #F6F8F9 0%, #E5EBEE 30%, #D7DEE3 60%, #F5F7F9 100%);
+    background: -moz-radial-gradient(circle farthest-corner at center center, #F6F8F9 0%, #E5EBEE 30%, #D7DEE3 60%, #F5F7F9 100%);
+    background: radial-gradient(circle farthest-corner at center center, #F6F8F9 0%, #E5EBEE 30%, #D7DEE3 60%, #F5F7F9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .carousel-item p {
     color: white;
     font-size: 0.95rem;
