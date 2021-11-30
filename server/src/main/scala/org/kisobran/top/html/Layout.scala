@@ -2,6 +2,7 @@ package org.kisobran.top.html
 
 import scala.xml.Elem
 
+/*Deprecated. This was used on recommendation page. Keeping it as idea to refactor all other pages*/
 object Layout {
   def createHtml(title: String, content: Elem): String =
     s"""<!DOCTYPE html>

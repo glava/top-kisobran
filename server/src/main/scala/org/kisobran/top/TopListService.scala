@@ -115,7 +115,6 @@ class TopListService(topListRepository: TopListRepository,
       archiveRoutes.route ~
       adminRoutes.route ~
       voteRoutes.route ~
-      recommendationRoutes.route ~
       pathPrefix("update") {
         post {
           formFieldMap { formContent =>
