@@ -156,7 +156,7 @@ class TopListService(topListRepository: TopListRepository,
               selectCache.get(limit, limit * page, true, Configuration.currentYear).map { all =>
                 val backPage = if (page >= 1) Some(page - 1) else None
                 val forwardPage = if (count <= (page + 1) * limit) None else Some(page + 1)
-                org.kisobran.top.html.index.render(all, forwardPage, backPage, element(), Configuration.currentYear)
+                org.kisobran.top.html.liste.render(all, forwardPage, backPage, element(), Configuration.currentYear)
               }
             }
           }
