@@ -99,12 +99,19 @@
 </div>
 
 <div class="row header_padding centered">
-    <div class="col-12">
+    <div class="col-6">
         <form action="/liste" method="GET" style="padding-top:20px">
             <div class="form-group col-md-6">
                 <input type="hidden" id="page" name="page" value="1">
             </div>
-            <button id="btn_more" type="submit" class="btn btn-outline-light" style="display:none">Još!!</button>
+            <button id="btn_more" type="submit" class="btn btn-outline-light" style="display:none">Ostale liste</button>
+        </form>
+    </div>
+    <div class="col-6">
+        <form action="/glasaj" method="GET" style="padding-top:20px">
+            <div class="form-group col-md-6">
+            </div>
+            <button id="btn_vote" type="submit" class="btn btn-outline-light" style="display:none">Glasaj</button>
         </form>
     </div>
 </div>
