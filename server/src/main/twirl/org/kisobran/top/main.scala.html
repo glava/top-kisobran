@@ -91,15 +91,20 @@
 
 <script type="text/javascript">
     var myCarousel = document.getElementById('kisobranCarousel');
-
+    var counter = 0;
     myCarousel.addEventListener('slid.bs.carousel', function () {
+        counter = counter + 1;
         if ($('body').attr("class") == "grad1") {
             $('body').attr("class", "grad2");
         }
         else {
             $('body').attr("class", "grad1");
         }
-        console.log("done");
+
+        if (counter > 5) {
+            $("#btn_more").css("display", "initial");
+            console.log("hello");
+        }
     })
 
 </script>
