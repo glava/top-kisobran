@@ -26,6 +26,11 @@
     font-size: 0.95rem;
 }
 
+.list em {
+    color: white;
+    font-size: 0.95rem;
+}
+
 .info p {
     font-size: 0.88rem;
     color: black;
