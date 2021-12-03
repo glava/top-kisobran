@@ -2,9 +2,9 @@
 
 @main("Top deset pobednici") {
     @for(entry <- winners) {
-        <div class="row" style="text-align: center;margin-bottom: 40px;">
+        <div class="row centered header_padding">
             <div class="col-10 col-lg-6 mx-auto">
-                <h2><a href="/pobednici/@entry.year"> Top deset @entry.year. godine</a></h2>
+                <h1 class="grad_text"><a href="/pobednici/@entry.year"> Top deset @entry.year. godine</a></h1>
             </div>
         </div>
         @for(y <- entry.ytLink) {
@@ -21,7 +21,7 @@
                 </div>
             </div>
         }
-    
+    <div class="row list">
         <div class="row">
             <div class="col-8 col-lg-8 mx-auto">
                 <blockquote class="blockquote text-center">
@@ -38,7 +38,7 @@
     
         <div class="row" style="padding-top: 20px; padding-bottom: 50px;">
             <div class="col-10 col-lg-6 mx-auto">
-                <p>1. @entry.artist1 – @entry.song1 <br>
+                 <p>1. @entry.artist1 – @entry.song1 <br>
                     2. @entry.artist2 – @entry.song2 <br>
                     3. @entry.artist3 – @entry.song3 <br>
                     4. @entry.artist4 – @entry.song4 <br>
@@ -50,7 +50,8 @@
                     10. @entry.artist10 – @entry.song10
                 </p>
             </div>
-        </div>   
+        </div>
+    </div>
     }
 
 }

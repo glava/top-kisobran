@@ -1,5 +1,5 @@
 @(entry: org.kisobran.top.db.TopListEntries)
-<div class="row header_padding list">
+<div class="row header_padding">
     <div class="col-11 col-lg-6 mx-auto">
         <h2><a href="/lista/@entry.id"> @entry.title</a></h2>
         @if(entry.ytLink.isEmpty || !entry.ytLink.exists(_.contains("spotify"))) {
