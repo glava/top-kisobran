@@ -135,6 +135,19 @@ object InMemoryWinnersRepository extends WinnersRepository {
   )
 
 
+  val Entries2020 = Seq(
+    Entry("Caribou", "Never Come Back", 1, 1),
+    Entry("z++", "Ljeto već je Gotovo", 2, 2),
+    Entry("Tom Misch", "Nightrider", 3, 3),
+    Entry("Matt Berninger", "One More Second", 4, 4),
+    Entry("Washed", "Out Too Late", 5, 5),
+    Entry("Four Tet", "Baby", 6, 6),
+    Entry("Sufjan Stevens", "Video Game", 7, 7),
+    Entry("Altin Gün", "Süpürgesi Yoncadan", 8, 8),
+    Entry("Fontaines D.C.", "I Don't Belong", 9, 9),
+    Entry("Disclosure", "Tondo", 10, 10)
+  )
+
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
@@ -211,6 +224,15 @@ object InMemoryWinnersRepository extends WinnersRepository {
         "Local Natives bolji nego ikad, Buč Kesidi brani domaće boje a lista ne može bez Foals, White Lies i Tame Impala-e",
         2019,
         Some("https://youtu.be/oWwytT5JAdM").map {
+          toEmbedded
+        }
+      ),
+    2020 ->
+      Winner(
+        Entries2020,
+        "Jedna - nikad se ne ponovila godina - koja će ostati upamćena po svemu samo ne po muzici. Ako vam treba neka uteha i sigurnost samo da znate Caribou je i dalje najbolji",
+        2020,
+        Some("https://youtu.be/I3hDvOL7E7Y").map {
           toEmbedded
         }
       )
