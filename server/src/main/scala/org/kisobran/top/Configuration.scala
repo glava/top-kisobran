@@ -7,7 +7,7 @@ import scala.util.Try
 
 object Configuration {
   val limit = 20
-  val currentYear = 2020
+  val currentYear = 2021
 
   val config = ConfigFactory.load()
   lazy val interface = config.getString("http.interface")
