@@ -26,6 +26,11 @@
     font-size: 0.95rem;
 }
 
+.kis-carousel-control {
+    height: 100px;
+    top: 50%;
+}
+
 .list em {
     color: white;
     font-size: 0.95rem;
