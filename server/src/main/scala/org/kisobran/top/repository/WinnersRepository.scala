@@ -148,6 +148,19 @@ object InMemoryWinnersRepository extends WinnersRepository {
     Entry("Disclosure", "Tondo", 10, 10)
   )
 
+  val Entries2021 = Seq(
+    Entry("Zicer Inc.", "Žad", 1, 1),
+    Entry("Yves Tumor", "Jackie", 2, 2),
+    Entry("Billie Eilish", "Happier Than Ever", 3, 3),
+    Entry("Tyler, The Creator", "SWEET / I THOUGHT YOU WANTED TO DANCE", 4, 4),
+    Entry("Lil Nas X", "INDUSTRY BABY", 5, 5),
+    Entry("Jessie Ware", "Hot N Heavy", 6, 6),
+    Entry("Sitzpinker", "Sudan", 7, 7),
+    Entry("Fred again..", " Marea (We’ve Lost Dancing)", 8, 8),
+    Entry("PinkPantheress", "Pain", 9, 9),
+    Entry("Xanadu", "Kopenhagen", 10, 10)
+  )
+
   val Winners: Map[Int, Winner] = Map(
     2011 -> Winner(
       Entries2011,
@@ -233,6 +246,15 @@ object InMemoryWinnersRepository extends WinnersRepository {
         "Jedna - nikad se ne ponovila godina - koja će ostati upamćena po svemu samo ne po muzici. Ako vam treba neka uteha i sigurnost samo da znate Caribou je i dalje najbolji",
         2020,
         Some("https://youtu.be/I3hDvOL7E7Y").map {
+          toEmbedded
+        }
+      ),
+    2021 ->
+      Winner(
+        Entries2021,
+        "U godini u kojoj samo muzika nije zakazala Žađ je zasluženo izdominirao",
+        2020,
+        Some("https://youtu.be/mUP473divsc").map {
           toEmbedded
         }
       )
